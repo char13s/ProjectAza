@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class EquipmentInvent : MonoBehaviour
 {
     [SerializeField]private List<EquipmentItemSlot> invent = new List<EquipmentItemSlot>(40);
     private static EquipmentInvent instance;
+    private static EquipmentItemSlot lastSelectedSlot;
+
+    public static event UnityAction clearDisplay;
+    public static EquipmentItemSlot LastSelectedSlot { get => lastSelectedSlot; set => lastSelectedSlot = value; }
 
     public static EquipmentInvent GetEquipmentInvent() => instance;
+    
     private void Awake() {
         if (instance != null && instance != this) {
             Destroy(gameObject);
@@ -34,5 +39,11 @@ public class EquipmentInvent : MonoBehaviour
             }
         }
         return null;
+    }
+    public void EmptyASlot() {
+        lastSelectedSlot.ClearASlot();
+        if (clearDisplay != null) {
+            clearDisplay();
+        }
     }
 }

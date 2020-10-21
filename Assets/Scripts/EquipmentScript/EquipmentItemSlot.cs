@@ -27,5 +27,10 @@ public class EquipmentItemSlot : MonoBehaviour
     }
     private void SetEquipment() {
         image.sprite = item.Sprite;
+        itemName.text = item.Name;
+    }
+    public void ClearASlot() {
+        image.sprite = null;
+        itemName.text = "";
     }
 }

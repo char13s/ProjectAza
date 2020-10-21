@@ -14,6 +14,7 @@ public class UINavigation : MonoBehaviour
     [SerializeField] private GameObject quitMenu;
     [SerializeField] private GameObject skillList;
     [SerializeField] private GameObject equipInvent;
+    [SerializeField] private GameObject areYouSureEquipMenu;
     public void OnPause() {
         eventSys.SetSelectedGameObject(topOfPauseMenu);
     }
@@ -43,5 +44,11 @@ public class UINavigation : MonoBehaviour
     }
     public void EquipInventOpen() {
         eventSys.SetSelectedGameObject(equipInvent);
+    }
+    public void GetSelectedSlot() {
+        if (eventSys.currentSelectedGameObject.GetComponent<EquipmentItemSlot>() != null) { 
+        EquipmentInvent.LastSelectedSlot= eventSys.currentSelectedGameObject.GetComponent<EquipmentItemSlot>();
+        }
+
     }
 }

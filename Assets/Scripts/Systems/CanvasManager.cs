@@ -21,9 +21,11 @@ public class CanvasManager : MonoBehaviour {
     [SerializeField] private GameObject skillList;
     [Header("Equipment Menu Stuff")]
     [SerializeField] private GameObject equipInvent;
+    [SerializeField] private GameObject areYouSureEquip;
     private void Start() {
         TurnCanvasOff(true);
         Player.skills += SkillAccessMenu;
+        EquipmentInputs.openMenu += AreYouSureEquip;
         //backGround.SetActive(true);
     }
     public void TurnCanvasOff(bool val) {//Main Menu control
@@ -63,5 +65,8 @@ public class CanvasManager : MonoBehaviour {
     }
     public void EquipmentInventControl(bool val) {
         equipInvent.SetActive(val);
+    }
+    public void AreYouSureEquip(bool val) {
+        areYouSureEquip.SetActive(val);
     }
 }

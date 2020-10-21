@@ -10,9 +10,14 @@ public class PlayerAnimationEvents : MonoBehaviour
     [SerializeField] private GameObject aura;
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private GameObject shotSparks;
+    [SerializeField] private GameObject darkHand;
+    [Header("Attacks")]
+    [SerializeField] private GameObject darkField;
+    [SerializeField] private GameObject shadowBall;
     [Header("Energy Shots")]
     [SerializeField] private GameObject shootPoint;
     [SerializeField] private GameObject rightHand;
+    [SerializeField] private GameObject lefttHand;
     [SerializeField] private GameObject energyWave;
     [SerializeField] private GameObject energyBullet;
     private void Start() {
@@ -46,5 +51,16 @@ public class PlayerAnimationEvents : MonoBehaviour
         player.Shoot = false;
         Instantiate(shotSparks, rightHand.transform.position, Quaternion.identity);
         Instantiate(energyBullet,rightHand.transform.position,Quaternion.identity);
+    }
+    private void DarkExplode() {
+        Instantiate(darkField,transform.position,Quaternion.identity);
+    }
+    private void DarkHand() {
+        //Instantiate(darkHand, lefttHand.transform.position, Quaternion.identity);
+        darkHand.SetActive(true);
+    }
+    private void ShadowBall() {
+        darkHand.SetActive(false);
+        Instantiate(shadowBall, lefttHand.transform.position, Quaternion.identity);
     }
 }

@@ -12,5 +12,5 @@ public class EquipmentData
 
     public Sprite Sprite { get => sprite; set => sprite = value; }
     public string Name { get => name; set => name = value; }
-
+    public string Description { get => description; set => description = value; }
 }

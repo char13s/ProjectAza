@@ -17,6 +17,7 @@ public class Player : MonoBehaviour {
     private int skillId;
     private bool teleport;
     private bool shoot;
+    private bool testButton;
     #endregion
     #region Script refs
     private Animator anim;
@@ -113,6 +114,8 @@ public class Player : MonoBehaviour {
     public bool Teleport { get => teleport; set { teleport = value; anim.SetBool("Teleport", teleport); } }
 
     public bool Shoot { get => shoot; set { shoot = value;anim.SetBool("Shoot",shoot); } }
+
+    public bool TestButton { get => testButton; set => testButton = value; }
     #endregion
     public static Player GetPlayer() => instance;
 
@@ -157,7 +160,9 @@ public class Player : MonoBehaviour {
         }
     }
     private void GetInput() {
-
+        if (Input.GetButtonDown("TestButton")) {
+            TestButton = true;
+        }
         if (cmdInput == 0 && !cancelCamMovement) {
             MovementControls();
         }
@@ -449,7 +454,7 @@ public class Player : MonoBehaviour {
         WallChecker.stickToWall -= WallCheck;
     }
     private void SummonWeapon(bool val) {
-        Instantiate(swordSpawn, transform.position, Quaternion.identity);
+        //Instantiate(swordSpawn, transform.position, Quaternion.identity);
         AzaSword.SetActive(val);
     }
     private void SetInputSeal(bool val) {

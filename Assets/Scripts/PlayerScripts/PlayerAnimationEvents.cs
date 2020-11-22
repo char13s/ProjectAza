@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationEvents : MonoBehaviour
-{
+public class PlayerAnimationEvents : MonoBehaviour {
     private Player player;
     private Rigidbody rbody;
     [Header("Effects")]
@@ -11,9 +10,12 @@ public class PlayerAnimationEvents : MonoBehaviour
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private GameObject shotSparks;
     [SerializeField] private GameObject darkHand;
+    [SerializeField] private GameObject swordPoint;
+    [SerializeField] private GameObject groundPointFront;
     [Header("Attacks")]
     [SerializeField] private GameObject darkField;
     [SerializeField] private GameObject shadowBall;
+    [SerializeField] private GameObject splash;
     [Header("Energy Shots")]
     [SerializeField] private GameObject shootPoint;
     [SerializeField] private GameObject rightHand;
@@ -62,5 +64,8 @@ public class PlayerAnimationEvents : MonoBehaviour
     private void ShadowBall() {
         darkHand.SetActive(false);
         Instantiate(shadowBall, lefttHand.transform.position, Quaternion.identity);
+    }
+    private void LightSplash() {
+        Instantiate(splash, groundPointFront.transform.position, Quaternion.identity);
     }
 }

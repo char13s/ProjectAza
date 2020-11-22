@@ -13,12 +13,12 @@ public class CmdInputState : StateMachineBehaviour
         
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
-        //GetInput();
-    }
-    private void GetInput() {
-        if (Input.GetButtonDown("Square")) {
+        if (Input.GetButtonDown("Fire2")) {
             pc.CmdInput = 1;
         }
+    }
+    private void GetInput() {
+        
 
         if (Input.GetButtonDown("Triangle")) {
             pc.CmdInput = 2;

@@ -73,7 +73,7 @@ public class EnemyBaseScript : MonoBehaviour {
         State = EnemyState.Null;
         anim = GetComponent<Animator>();
         mesh = GetComponent<SkinnedMeshRenderer>();
-        nav = GetComponent<NavMeshAgent>();
+        
     }
     public virtual void OnEnable() {
         //EnemyHitboxBehavior[] behaviours = anim.GetBehaviours<EnemyHitboxBehavior>();
@@ -84,13 +84,13 @@ public class EnemyBaseScript : MonoBehaviour {
     public virtual void Start() {
         player = Player.GetPlayer();
         enemies.Add(this);
-        StatControl();
+        //StatControl();
     }
 
     // Update is called once per frame
     public virtual void Update() {
         if (state != EnemyState.Hurt && state != EnemyState.Null) {
-            StateLogic();
+            //StateLogic();
         }
     }
 

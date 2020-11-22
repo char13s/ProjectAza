@@ -139,6 +139,7 @@ public class Player : MonoBehaviour {
         Dash.bodyControl += BodyControl;
         //Cursor.lockState = CursorLockMode.Locked;
         ChargeJump.jump += Jumps;
+        Jump.jumped += Jumped;
         SummonAzaSword.summonWeapon += SummonWeapon;
         // ThrowingPortal.sendSpot += TeleportHere;
         GameManager.spawnPlayer += TeleportHere;
@@ -292,10 +293,10 @@ public class Player : MonoBehaviour {
     }
     private void JumpCharge() {//X
         if (Input.GetButtonDown("Jump") && !jumping && grounded) {
-            ReadyJump = true;
+            Jumping = true;
             UnGround();
-            Grounded = false;
-            StartCoroutine(WaitToResetGround());
+            //Grounded = false;
+            //StartCoroutine(WaitToResetGround());
         }
 
     }
@@ -430,7 +431,7 @@ public class Player : MonoBehaviour {
         }
     }
     private IEnumerator WaitToResetGround() {
-        YieldInstruction wait = new WaitForSeconds(0.2f);
+        YieldInstruction wait = new WaitForSeconds(1f);
         yield return wait;
         GroundChecker.grounded += GroundCheck;
     }
@@ -446,6 +447,9 @@ public class Player : MonoBehaviour {
         yield return null;
         Jumping = false;
         ReadyJump = false;
+    }
+    private void Jumped() {
+        StartCoroutine(WaitToResetGround());
     }
     private void UnGround() {
         GroundChecker.grounded -= GroundCheck;

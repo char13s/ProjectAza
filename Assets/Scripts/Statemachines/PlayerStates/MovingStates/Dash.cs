@@ -16,7 +16,7 @@ public class Dash : StateMachineBehaviour
             
         }
         //trail.SetActive(true);
-        player.Rbody.AddForce(player.Displacement*moveSpeed,ForceMode.Impulse);
+        player.Rbody.AddForce(player.transform.forward*moveSpeed,ForceMode.Impulse);
         //player.transform.position = Vector3.MoveTowards(player.transform.position, player.DefaultLockOnPoint.transform.position, moveSpeed);
         //Turn mesh invisible
     }

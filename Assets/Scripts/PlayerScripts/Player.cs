@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     #region Script refs
     private Animator anim;
     private Rigidbody rbody;
+    private PlayerCommands comm;
     #endregion
     #region Obj refs
     [Header("Objects")]
@@ -129,7 +130,7 @@ public class Player : MonoBehaviour {
         anim = GetComponent<Animator>();
         Rbody = GetComponent<Rigidbody>();
         current = meshRef.GetComponent<SkinnedMeshRenderer>();
-
+        comm = GetComponent<PlayerCommands>();
     }
     void Start() {
         stats.SetStatsDefault();
@@ -145,6 +146,7 @@ public class Player : MonoBehaviour {
         GameManager.spawnPlayer += TeleportHere;
         SceneDialogue.sealPlayerInput += SetInputSeal;
         GameManager.sealPlayer += SetInputSeal;
+        ChainInput.sendChain += ChainControl;
     }
     void Update() {
         if (!inputSeal) {
@@ -416,6 +418,9 @@ public class Player : MonoBehaviour {
 
     private void TeleportHere(Transform spot) {
         transform.position = spot.position + new Vector3(0, 1, 0);
+    }
+    private void ChainControl(int val) {
+        comm.Chain = val;
     }
     #endregion
     private IEnumerator MpDrain(int rate) {

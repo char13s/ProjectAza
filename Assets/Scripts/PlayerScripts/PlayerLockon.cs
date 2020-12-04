@@ -12,13 +12,16 @@ public class PlayerLockon : MonoBehaviour {
     private Player player;
     private List<EnemyBaseScript> enemies = new List<EnemyBaseScript>(16);
     private EnemyBaseScript closestEnemy;
+    private static PlayerLockon instance;
     private float rotationSpeed;
     private bool rotLock;
     private int t;
     public float RotationSpeed { get => rotationSpeed; set { rotationSpeed = value; Mathf.Clamp(value, 5, 8); } }
 
     public int T { get => t; set => t = value; }
+    public List<EnemyBaseScript> Enemies { get => enemies; set => enemies = value; }
 
+    public static PlayerLockon GetLockon() => instance;
     private void Awake() {
         player = GetComponent<Player>();
     }
@@ -31,7 +34,7 @@ public class PlayerLockon : MonoBehaviour {
     void Update() {
         UpdateEnemyList();
         if (player.LockedOn) {
-            if (enemies.Count == 0 && player.CmdInput == 0) {
+            if (Enemies.Count == 0 && player.CmdInput == 0) {
                 BasicMovement();
             }
             else {
@@ -47,15 +50,15 @@ public class PlayerLockon : MonoBehaviour {
             bool shouldBeInList = false;
             if (current != null) { shouldBeInList = Vector3.SqrMagnitude(current.transform.position - position) <= 361; }
 
-            int index = enemies.IndexOf(current);
+            int index = Enemies.IndexOf(current);
             if (shouldBeInList != index >= 0) {
                 if (shouldBeInList) {
-                    enemies.Add(current);
-                    if (enemies.Count > 1) {
+                    Enemies.Add(current);
+                    if (Enemies.Count > 1) {
                         GetClosestEnemy();
                     }
                 }
-                else { enemies.RemoveAt(index); }
+                else { Enemies.RemoveAt(index); }
             }
         }
     }
@@ -63,13 +66,13 @@ public class PlayerLockon : MonoBehaviour {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        if (enemies.Count != 0 && T < enemies.Count) {
+        if (Enemies.Count != 0 && T < Enemies.Count) {
 
-            LockOn(x, y, enemies[T]);
+            LockOn(x, y, Enemies[T]);
         }
         MovementInputs(x, y);
     }
-    private void EnemyLockedTo() { }
+    public EnemyBaseScript EnemyLockedTo() { return Enemies[T]; }
     private void LockOn(float x, float y, EnemyBaseScript target) {
         EnemyLockedTo();
         target.Targeted = true;
@@ -86,7 +89,7 @@ public class PlayerLockon : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * y * Time.deltaTime);
             //}
         }
-        if (enemies[T].Dead) {
+        if (Enemies[T].Dead) {
             GetClosestEnemy();
         }
     }
@@ -107,13 +110,13 @@ public class PlayerLockon : MonoBehaviour {
     }
 
     private void GetClosestEnemy() {
-        if (T < enemies.Count) {
-            float enDist = EnDist(enemies[T].gameObject);
+        if (T < Enemies.Count) {
+            float enDist = EnDist(Enemies[T].gameObject);
 
-            foreach (EnemyBaseScript en in enemies) {
+            foreach (EnemyBaseScript en in Enemies) {
                 closestEnemy = en;
                 if (EnDist(en.gameObject) < enDist) {
-                    T = enemies.IndexOf(en);
+                    T = Enemies.IndexOf(en);
                 }
             }
         }

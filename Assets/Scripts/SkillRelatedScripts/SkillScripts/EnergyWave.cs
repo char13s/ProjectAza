@@ -28,7 +28,7 @@ public class EnergyWave : MonoBehaviour
         //Instantiate(fadeAway,transform.position,Quaternion.identity);
     }
     private void OnTriggerEnter(Collider other) {
-        Debug.Log(other.name);
+
         //if (other.gameObject.CompareTag("Enemy")) {
         //    if (other.gameObject.GetComponent<Enemy>() != null) {
         //        other.gameObject.GetComponent<Enemy>().CalculateDamage(5);

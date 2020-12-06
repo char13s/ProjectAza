@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
     private Animator anim;
     private Rigidbody rbody;
     private PlayerCommands comm;
+    private PlayerLockon playerTarget;
     #endregion
     #region Obj refs
     [Header("Objects")]
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour {
     public bool Attacking { get => attacking; set { attacking = value; anim.SetBool("AttackStance", attacking); } }
     public Rigidbody Rbody { get => rbody; set => rbody = value; }
     public bool Jumping { get => jumping; set { jumping = value; anim.SetBool("Jump", jumping); } }
-    public bool Grounded { get => grounded; set { grounded = value; anim.SetBool("Grounded", grounded); if (value) { wallInReach = false; } } }
+    public bool Grounded { get => grounded; set { grounded = value; anim.SetBool("Grounded", grounded); if (!value) { StartCoroutine(WaitToResetGround()); } } }
     public bool ReadyJump { get => readyJump; set { readyJump = value; anim.SetBool("ReadyJump", readyJump); } }
     public int SkillId { get => skillId; set { skillId = value; anim.SetInteger("SkillId", skillId); } }
 
@@ -117,6 +118,7 @@ public class Player : MonoBehaviour {
     public bool Shoot { get => shoot; set { shoot = value;anim.SetBool("Shoot",shoot); } }
 
     public bool TestButton { get => testButton; set => testButton = value; }
+    public GameObject Body { get => body; set => body = value; }
     #endregion
     public static Player GetPlayer() => instance;
 
@@ -131,6 +133,7 @@ public class Player : MonoBehaviour {
         Rbody = GetComponent<Rigidbody>();
         current = meshRef.GetComponent<SkinnedMeshRenderer>();
         comm = GetComponent<PlayerCommands>();
+        playerTarget = GetComponent<PlayerLockon>();
     }
     void Start() {
         stats.SetStatsDefault();
@@ -147,6 +150,8 @@ public class Player : MonoBehaviour {
         SceneDialogue.sealPlayerInput += SetInputSeal;
         GameManager.sealPlayer += SetInputSeal;
         ChainInput.sendChain += ChainControl;
+        AirCombos.gravity += GravityControl;
+        SlamState.gravity += GravityControl;
     }
     void Update() {
         if (!inputSeal) {
@@ -295,13 +300,15 @@ public class Player : MonoBehaviour {
     }
     private void JumpCharge() {//X
         if (Input.GetButtonDown("Jump") && !jumping && grounded) {
-            Jumping = true;
             UnGround();
+            Jumping = true;
+            
             //Grounded = false;
             //StartCoroutine(WaitToResetGround());
         }
 
     }
+     
     private void Teleportation() {//L2
         if (L2.GetButtonDown()) {
             TeleportButton = true;
@@ -395,6 +402,14 @@ public class Player : MonoBehaviour {
     }
     #endregion
     #region Event Methods
+    private void TeleportToEnemey() {
+        if (playerTarget.Enemies.Count > 0) {
+            transform.position = playerTarget.EnemyLockedTo().gameObject.transform.position + new Vector3(0, 4, 0);
+        }
+        else {
+            transform.position = transform.position + transform.forward * 15 + new Vector3(0, 5, 0);
+        }
+    }
     private void SkillTrigger() {
         if (skills != null) {
             skills(skillButton);
@@ -403,7 +418,7 @@ public class Player : MonoBehaviour {
     private void Jumps() {
 
         Jumping = true; Debug.Log("fuck yo jump");
-        StartCoroutine(WaitToStopJump());
+        //StartCoroutine(WaitToStopJump());
     }
     private void GroundCheck(bool val) {
         Grounded = val;
@@ -422,6 +437,9 @@ public class Player : MonoBehaviour {
     private void ChainControl(int val) {
         comm.Chain = val;
     }
+    private void GravityControl(bool val) {
+        rbody.useGravity = val;
+    }
     #endregion
     private IEnumerator MpDrain(int rate) {
         YieldInstruction wait = new WaitForSeconds(rate);
@@ -436,7 +454,7 @@ public class Player : MonoBehaviour {
         }
     }
     private IEnumerator WaitToResetGround() {
-        YieldInstruction wait = new WaitForSeconds(1f);
+        YieldInstruction wait = new WaitForSeconds(0.85f);
         yield return wait;
         GroundChecker.grounded += GroundCheck;
     }
@@ -453,7 +471,10 @@ public class Player : MonoBehaviour {
         Jumping = false;
         ReadyJump = false;
     }
-    private void Jumped() {
+    private void Jumped(float val) {
+        UnGround();
+        Grounded = false;
+        Rbody.AddForce(new Vector3(0, val, 0), ForceMode.Impulse);
         StartCoroutine(WaitToResetGround());
     }
     private void UnGround() {
@@ -470,7 +491,7 @@ public class Player : MonoBehaviour {
         inputSeal = val;
     }
     private void BodyControl(bool val) {
-        body.SetActive(val);
+        Body.SetActive(val);
         spawnIn.SetActive(val);
         if (val) {
             UIAura.SetActive(false);

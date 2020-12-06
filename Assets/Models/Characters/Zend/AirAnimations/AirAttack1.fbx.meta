@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 47ed5f9bef7569e43874151d9f1260f1
+guid: 5e4886ad8fbbac449a478f89a01cdf91
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: KickUp
+    second: AirAttack1
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: KickUp
+      name: AirAttack1
       takeName: Take 001
       internalID: 0
-      firstFrame: 8900
-      lastFrame: 9100
+      firstFrame: 10520
+      lastFrame: 10530
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -58,25 +58,11 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.15079504
-        functionName: RiseHit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.42327863
-        functionName: RiseHit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 8900
+      additiveReferencePoseFrame: 9346
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -136,11 +122,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 4922297f759069047a18825563b07cb8,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 2
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class PlayerCommands : MonoBehaviour
 {
-    private enum Inputs { X, Square, Triangle, Circle, Up, Down }
+    private enum Inputs { X, Square, Triangle, Circle, Up, Down,Right,Left }
     #region Events
     public static event UnityAction<string> sendInput;
     public static event UnityAction<int> sendChain;
@@ -51,7 +51,7 @@ public class PlayerCommands : MonoBehaviour
         AnalogInputs();
     }
     private IEnumerator SlowUpdate() {
-        YieldInstruction wait = new WaitForSeconds(0.05f);
+        YieldInstruction wait = new WaitForSeconds(0.1f);
         while (isActiveAndEnabled) {
             yield return wait;
             ResetChain();
@@ -65,6 +65,12 @@ public class PlayerCommands : MonoBehaviour
         }
         if (y < -0.7f) {
             AddInput(Inputs.Down);
+        }
+        if (x > 0.7f) {
+            AddInput(Inputs.Right);
+        }
+        if (x > -0.7f) {
+            AddInput(Inputs.Left);
         }
     }
     private void XButton() {
@@ -103,25 +109,44 @@ public class PlayerCommands : MonoBehaviour
         inputs.Add(button);
     }
     private void InputChains() {
-        if (Input.GetButtonDown("Fire2") && Input.GetButtonDown("Fire3")) {
-            Debug.Log("Fire!");
-        }
+        
         if (inputs.Contains(Inputs.Triangle) && inputs.Contains(Inputs.Circle)) {
             Debug.Log("Fire!BIcth");
             ResetChain();
         }
-        if (inputs.Contains(Inputs.Triangle) && inputs.Contains(Inputs.Up)) {
+        if (inputs.Contains(Inputs.X)){
+            Chain = 1;
+        }
+        if (inputs.Contains(Inputs.Square)) {
+            Chain = 2;
+        }
+        if (inputs.Contains(Inputs.Triangle)) {
+            Chain = 3;
+        }
+        if (inputs.Contains(Inputs.Circle)) {
+            Chain = 4;
+        }
+        if (inputs.Contains(Inputs.Square) && inputs.Contains(Inputs.Up)) {
             Debug.Log("Up Attack!");
+            if (sendInput != null) {
+                sendInput("Up + Square");
+            }
             ResetChain();
             Chain = 5;
         }
-        if (inputs.Contains(Inputs.Triangle) && inputs.Contains(Inputs.Down)) {
+        if (inputs.Contains(Inputs.Square) && inputs.Contains(Inputs.Down)) {
             Debug.Log("Down Attack!");
+            if (sendInput != null) {
+                sendInput("Down + Square");
+            }
             ResetChain();
 
         }
-        if (inputs.Contains(Inputs.X) && inputs.Contains(Inputs.Up)) {
-            Debug.Log("Teleport");
+        if (inputs.Contains(Inputs.Circle) && inputs.Contains(Inputs.Up)) {
+
+            if (sendInput != null) {
+                sendInput("Up + Circle");
+            }
             Chain = 6;
             ResetChain();
         }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.AI;
+//using UnityEngine.AI;
 #pragma warning disable 0649
-[RequireComponent(typeof(NavMeshAgent))]
+//[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyBaseScript : MonoBehaviour {
 
     public enum EnemyState { Idle, Chasing, Attacking, Hurt, AttackPoistioned, Null, Stunned, UniqueState,Dead }
@@ -16,7 +16,8 @@ public class EnemyBaseScript : MonoBehaviour {
     private Animator anim;
     private SkinnedMeshRenderer mesh;
     private Player player;
-    private NavMeshAgent nav;
+    private Rigidbody rbody;
+    //private NavMeshAgent nav;
     #endregion
 
     #region Animation Parameters
@@ -26,11 +27,14 @@ public class EnemyBaseScript : MonoBehaviour {
     private bool attacking;
     private bool walk;
     private bool targeted;
+    private bool grounded;
     #endregion
     #region Object References
     [SerializeField] private EnemyHitBox hitbox;
     [SerializeField] private GameObject arrow;
+    [SerializeField] private GameObject body;
 
+    [SerializeField] private GameObject UpPoint;
     #endregion
     #region Stats
     [Header("Stats")]
@@ -53,7 +57,7 @@ public class EnemyBaseScript : MonoBehaviour {
 
     public static event UnityAction<int> sendBp;
         #region Getters and Setters
-    public bool Hit { get => hit; set { hit = value; anim.SetBool("Hurt", hit); OnHit(); } }
+    public bool Hit { get => hit; set { hit = value; anim.SetBool("Hurt", hit); if (value) { OnHit(); } } }
     public int Health { get => health; set { health = value;  } }
     public EnemyState State { get => state; set { state = value; StateControl(); } }
 
@@ -68,12 +72,15 @@ public class EnemyBaseScript : MonoBehaviour {
     public bool Targeted { get => targeted; set { targeted = value; IsTargeted(); } }
 
     public float HealthLeft { get => healthLeft; set { healthLeft = Mathf.Clamp(value, 0, 99999999); if (healthLeft == 0) { Dead = true; } } }
+
+    public bool Grounded { get => grounded; set => grounded = value; }
     #endregion
     public virtual void Awake() {
         State = EnemyState.Null;
         anim = GetComponent<Animator>();
         mesh = GetComponent<SkinnedMeshRenderer>();
-        
+        rbody = GetComponent<Rigidbody>();
+        StatControl();
     }
     public virtual void OnEnable() {
         //EnemyHitboxBehavior[] behaviours = anim.GetBehaviours<EnemyHitboxBehavior>();
@@ -233,6 +240,12 @@ public class EnemyBaseScript : MonoBehaviour {
         Attacking = false;
         State = EnemyState.Null;
     }
+    private IEnumerator ComeDown() {
+        YieldInstruction wait = new WaitForSeconds(10f);
+        yield return wait;
+        rbody.useGravity = true;
+        Grounded = true;
+    }
     #endregion 
     private void IsTargeted() {
         if (arrow != null) {
@@ -256,7 +269,8 @@ public class EnemyBaseScript : MonoBehaviour {
     public void CalculateDamage(float addition) {
         if (!dead) {
             HealthLeft -= Mathf.Clamp((player.stats.BattlePressure / battlePower), 0, 999);
-            Debug.Log(Mathf.Clamp((player.stats.BattlePressure / battlePower), 0, 999));
+
+            //Debug.Log(Mathf.Clamp((player.stats.BattlePressure / battlePower), 0, 999));
             //Hit = true;
             if (HealthLeft <= Health / 4) {
 
@@ -294,4 +308,19 @@ public class EnemyBaseScript : MonoBehaviour {
         return 0;
 
     }
+    #region States
+    public void SmackedUp() {
+        rbody.useGravity = false;
+        Grounded = false;
+        State = EnemyState.Null;
+        transform.position =Vector3.MoveTowards(transform.position, UpPoint.transform.position, 10);
+        StartCoroutine(ComeDown());
+    }
+    public void SmackDown() {
+        State = EnemyState.Null;
+        rbody.useGravity = true;
+        Grounded = true;
+        rbody.AddForce(new Vector3(0,-350,0),ForceMode.Impulse);
+    }
+    #endregion
 }

@@ -10,6 +10,7 @@ public class EnemyBody : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         mainEnemy.Hit = true;
+
         if (hitSparks != null) {
             Instantiate(hitSparks, mainEnemy.transform.position, Quaternion.identity);
         }

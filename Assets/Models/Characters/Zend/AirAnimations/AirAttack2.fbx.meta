@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 47ed5f9bef7569e43874151d9f1260f1
+guid: 498ea7c75058831439207584142c4ed5
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: KickUp
+    second: AirAttack2
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: KickUp
+      name: AirAttack2
       takeName: Take 001
       internalID: 0
-      firstFrame: 8900
-      lastFrame: 9100
+      firstFrame: 10540
+      lastFrame: 10550
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -58,25 +58,11 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.15079504
-        functionName: RiseHit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.42327863
-        functionName: RiseHit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 8900
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

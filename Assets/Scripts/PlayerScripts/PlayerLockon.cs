@@ -23,6 +23,12 @@ public class PlayerLockon : MonoBehaviour {
 
     public static PlayerLockon GetLockon() => instance;
     private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+        }
+        else {
+            instance = this;
+        }
         player = GetComponent<Player>();
     }
     // Start is called before the first frame update
@@ -84,10 +90,10 @@ public class PlayerLockon : MonoBehaviour {
                 transform.rotation = Quaternion.LookRotation(delta, Vector3.up);
             }
             //transform.LookAt(Enemies[T].transform.position,Vector3.up);
-            //if (!player.Dashable) {
-                transform.RotateAround(target.transform.position, target.transform.up, -x * rotationSpeed * moveSpeed * Time.deltaTime);
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * y * Time.deltaTime);
-            //}
+            if (player.CmdInput==0) {
+              transform.RotateAround(target.transform.position, target.transform.up, -x * rotationSpeed * moveSpeed * Time.deltaTime);
+              transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * y * Time.deltaTime);
+            }
         }
         if (Enemies[T].Dead) {
             GetClosestEnemy();
@@ -104,9 +110,11 @@ public class PlayerLockon : MonoBehaviour {
             transform.rotation = Quaternion.LookRotation(delta, Vector3.up);
 
         }
-        transform.position = Vector3.MoveTowards(transform.position, leftPoint.transform.position, moveSpeed * -x * Time.deltaTime);
-        transform.position = Vector3.MoveTowards(transform.position, aimPoint.transform.position, moveSpeed * y * Time.deltaTime);
-        MovementInputs(x, y);
+        if (player.CmdInput == 0) {
+            transform.position = Vector3.MoveTowards(transform.position, leftPoint.transform.position, moveSpeed * -x * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, aimPoint.transform.position, moveSpeed * y * Time.deltaTime);
+            MovementInputs(x, y);
+        }
     }
 
     private void GetClosestEnemy() {

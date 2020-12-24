@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 #pragma warning disable 0649
 public class PlayerLockon : MonoBehaviour {
     [Header("Obj refs")]
@@ -19,6 +19,8 @@ public class PlayerLockon : MonoBehaviour {
     public float RotationSpeed { get => rotationSpeed; set { rotationSpeed = value; Mathf.Clamp(value, 5, 8); } }
 
     public int T { get => t; set => t = value; }
+
+    public static UnityAction<bool> enemyDetected;
     public List<EnemyBaseScript> Enemies { get => enemies; set => enemies = value; }
 
     public static PlayerLockon GetLockon() => instance;
@@ -39,12 +41,13 @@ public class PlayerLockon : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         UpdateEnemyList();
+        EnemyFound();
         if (player.LockedOn) {
             if (Enemies.Count == 0 && player.CmdInput == 0) {
                 BasicMovement();
             }
             else {
-
+        
                 GetInput();
             }
         }
@@ -116,7 +119,18 @@ public class PlayerLockon : MonoBehaviour {
             MovementInputs(x, y);
         }
     }
-
+    private void EnemyFound() {
+        if (enemies.Count > 0) {
+            if (enemyDetected != null) {
+                enemyDetected(true);
+            }
+        }
+        else {
+            if (enemyDetected != null) {
+                enemyDetected(false);
+            }
+        }
+    }
     private void GetClosestEnemy() {
         if (T < Enemies.Count) {
             float enDist = EnDist(Enemies[T].gameObject);
@@ -128,8 +142,6 @@ public class PlayerLockon : MonoBehaviour {
                 }
             }
         }
-
-
     }
     private float EnDist(GameObject target) => Vector3.Distance(target.transform.position, player.transform.position);
     private void SetLock() {

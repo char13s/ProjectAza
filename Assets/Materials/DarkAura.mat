@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fire
+  m_Name: DarkAura
   m_Shader: {fileID: -6465566751694194690, guid: 3b7d86ec6ff08684dbb932bf8f26f406,
     type: 3}
   m_ShaderKeywords: 
@@ -92,9 +92,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_75F91B37: {r: 4.679245, g: 0.5593711, b: 0.24279104, a: 1}
-    - Vector2_1D8C4363: {r: 0, g: 0.86, b: 0, a: 0}
-    - Vector2_A44DE31C: {r: 0, g: 0.61, b: 0, a: 0}
+    - Color_75F91B37: {r: 0, g: 0, b: 0, a: 1}
+    - Vector2_1D8C4363: {r: 3.97, g: 8.59, b: 2.85, a: 0}
+    - Vector2_A44DE31C: {r: 19.93, g: 34.8, b: -19.93, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

@@ -9,6 +9,7 @@ public class VirtualCamManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera lockOnCam;
     private void Start() {
         Player.lockOn += SwitchCam;
+        PlayerLockon.enemyDetected += SwitchCam;
     }
     private void SwitchCam(bool val) {
         if (val) {

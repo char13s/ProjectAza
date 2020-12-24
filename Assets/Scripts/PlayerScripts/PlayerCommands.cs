@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public class PlayerCommands : MonoBehaviour
-{
-    private enum Inputs { X, Square, Triangle, Circle, Up, Down,Right,Left }
+public class PlayerCommands : MonoBehaviour {
+    private enum Inputs { X, Square, Triangle, Circle, Up, Down, Right, Left, Direction }
     #region Events
     public static event UnityAction<string> sendInput;
     public static event UnityAction<int> sendChain;
@@ -26,18 +25,18 @@ public class PlayerCommands : MonoBehaviour
         inputs = new List<Inputs>(52);
     }
     void Start() {
-        fakeUpdate = StartCoroutine(SlowUpdate());
+        //fakeUpdate = StartCoroutine(SlowUpdate());
         anim = GetComponent<Animator>();
         Player.lockOn += LockControl;
     }
     private void Update() {
-        if (lockon) {
-            GetInputs();
-        }
-
+        GetInputs();
     }
     private void GetInputs() {
         InputChains();
+        if (lockon) {
+            InputCombinations();
+        }
         TriangleButton();
         XButton();
         SquareButton();
@@ -45,13 +44,14 @@ public class PlayerCommands : MonoBehaviour
         if (inputs.Count > 3) {
             ResetChain();
         }
+        
 
     }
     private void FixedUpdate() {
         AnalogInputs();
     }
     private IEnumerator SlowUpdate() {
-        YieldInstruction wait = new WaitForSeconds(0.1f);
+        YieldInstruction wait = new WaitForSeconds(0.5f);
         while (isActiveAndEnabled) {
             yield return wait;
             ResetChain();
@@ -69,8 +69,11 @@ public class PlayerCommands : MonoBehaviour
         if (x > 0.7f) {
             AddInput(Inputs.Right);
         }
-        if (x > -0.7f) {
+        if (x < -0.7f) {
             AddInput(Inputs.Left);
+        }
+        if (x > 0.7f || y > 0.7f) {
+            AddInput(Inputs.Direction);
         }
     }
     private void XButton() {
@@ -109,23 +112,33 @@ public class PlayerCommands : MonoBehaviour
         inputs.Add(button);
     }
     private void InputChains() {
-        
+
         if (inputs.Contains(Inputs.Triangle) && inputs.Contains(Inputs.Circle)) {
             Debug.Log("Fire!BIcth");
             ResetChain();
         }
-        if (inputs.Contains(Inputs.X)){
+        if (inputs.Contains(Inputs.X)) {
             Chain = 1;
+            
         }
         if (inputs.Contains(Inputs.Square)) {
             Chain = 2;
+            
         }
         if (inputs.Contains(Inputs.Triangle)) {
             Chain = 3;
+            
         }
         if (inputs.Contains(Inputs.Circle)) {
             Chain = 4;
+            
         }
+        if (inputs.Contains(Inputs.X) && inputs.Contains(Inputs.Direction)) {
+            Chain = 7;
+            ResetChain();
+        }
+    }
+    private void InputCombinations() {
         if (inputs.Contains(Inputs.Square) && inputs.Contains(Inputs.Up)) {
             Debug.Log("Up Attack!");
             if (sendInput != null) {
@@ -140,7 +153,7 @@ public class PlayerCommands : MonoBehaviour
                 sendInput("Down + Square");
             }
             ResetChain();
-
+            //Insert Chain Here.
         }
         if (inputs.Contains(Inputs.Circle) && inputs.Contains(Inputs.Up)) {
 
@@ -150,6 +163,8 @@ public class PlayerCommands : MonoBehaviour
             Chain = 6;
             ResetChain();
         }
+        
+
     }
     private void ResetChain() {
         inputs.Clear();

@@ -35,9 +35,10 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject meshRef;
     [SerializeField] private GameObject body;
     [SerializeField] private GameObject hurtBox;
-    [SerializeField]private GameObject interactionBox;
+    [SerializeField] private GameObject interactionBox;
     //[SerializeField] private GameObject hitBox;
     [SerializeField] private GameObject dodgeBox;
+    [SerializeField] private GameObject wallChecker;
     [Space]
     [Header("Effects")]
     [SerializeField] private GameObject leftDash;
@@ -71,7 +72,7 @@ public class Player : MonoBehaviour {
     private bool skillButton;
     private bool teleportButton;
     private bool lockedOn;
-    
+
     private bool cancelCamMovement;
     private static Player instance;
     #region Input seals
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour {
     internal PlayerStats stats = new PlayerStats();
     private AxisButton R2 = new AxisButton("R2");
     private AxisButton L2 = new AxisButton("L2");
-    
+
     #endregion
     #region Events
     public static event UnityAction<float> jumpForce;
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour {
     public bool Attacking { get => attacking; set { attacking = value; anim.SetBool("AttackStance", attacking); } }
     public Rigidbody Rbody { get => rbody; set => rbody = value; }
     public bool Jumping { get => jumping; set { jumping = value; anim.SetBool("Jump", jumping); } }
-    public bool Grounded { get => grounded; set { grounded = value; anim.SetBool("Grounded", grounded); if (!value) { StartCoroutine(WaitToResetGround()); } } }
+    public bool Grounded { get => grounded; set { grounded = value; anim.SetBool("Grounded", grounded); } }
     public bool ReadyJump { get => readyJump; set { readyJump = value; anim.SetBool("ReadyJump", readyJump); } }
     public int SkillId { get => skillId; set { skillId = value; anim.SetInteger("SkillId", skillId); } }
 
@@ -107,7 +108,7 @@ public class Player : MonoBehaviour {
 
     public GameObject DefaultLockOnPoint { get => defaultLockOnPoint; set => defaultLockOnPoint = value; }
     public bool CancelCamMovement { get => cancelCamMovement; set => cancelCamMovement = value; }
-    public bool LockedOn { get => lockedOn; set { lockedOn = value;CancelCamMovement = value; if (lockOn != null) { lockOn(value); } } }
+    public bool LockedOn { get => lockedOn; set { lockedOn = value; CancelCamMovement = value; if (lockOn != null) { lockOn(value); } } }
     public bool SkillButton { get => skillButton; set { skillButton = value; SkillTrigger(); } }
 
     public int LStickX { get => lStickX; set { lStickX = value; anim.SetInteger("X", lStickX); } }
@@ -115,7 +116,7 @@ public class Player : MonoBehaviour {
 
     public bool Teleport { get => teleport; set { teleport = value; anim.SetBool("Teleport", teleport); } }
 
-    public bool Shoot { get => shoot; set { shoot = value;anim.SetBool("Shoot",shoot); } }
+    public bool Shoot { get => shoot; set { shoot = value; anim.SetBool("Shoot", shoot); } }
 
     public bool TestButton { get => testButton; set => testButton = value; }
     public GameObject Body { get => body; set => body = value; }
@@ -139,7 +140,7 @@ public class Player : MonoBehaviour {
         stats.SetStatsDefault();
         LegControlState.legLayer += LegLayerControl;
         GroundChecker.grounded += GroundCheck;
-        WallChecker.stickToWall += WallCheck;
+        //WallChecker.stickToWall += WallCheck;
         Dash.bodyControl += BodyControl;
         //Cursor.lockState = CursorLockMode.Locked;
         ChargeJump.jump += Jumps;
@@ -151,7 +152,8 @@ public class Player : MonoBehaviour {
         GameManager.sealPlayer += SetInputSeal;
         ChainInput.sendChain += ChainControl;
         AirCombos.gravity += GravityControl;
-        SlamState.gravity += GravityControl;
+        //SlamState.gravity += GravityControl;
+        //WallCheckState.wallCheck += WallCheck;
     }
     void Update() {
         if (!inputSeal) {
@@ -171,10 +173,9 @@ public class Player : MonoBehaviour {
         if (Input.GetButtonDown("TestButton")) {
             TestButton = true;
         }
-        if (cmdInput == 0 && !cancelCamMovement) {
+        if (cmdInput == 0 && !teleport) {
             MovementControls();
         }
-
         //WallJumping();
         if (skillButton) {
             Skills();
@@ -184,14 +185,17 @@ public class Player : MonoBehaviour {
             if (!teleportButton) {
                 JumpCharge();
             }
-            Attack();
-            ShootLight();
-            Teleportation();
+            if (!lockedOn) {
+                Attack();
+                ShootLight();
+                Teleportation();
+                Interact();
+            }
             Phase();
-            Interact();
         }
         LockOn();
         SkillButtonControl();
+        Jumps();
     }
     #region Movement 
     private void MovementControls() {
@@ -248,22 +252,13 @@ public class Player : MonoBehaviour {
     }
     private void Attack() {//square and triangle
         if (Input.GetButtonDown("Fire1")) {
-            if (!attacking) {
-                Attacking = true;
-                CmdInput = 0;
-                return;
-            }
+            CmdInput = 1;
         }
-        if (attacking) {
-            if (Input.GetButtonDown("Fire1")) {
-                CmdInput = 1;
-            }
-            if (Input.GetButtonDown("Fire3")) {
-                Debug.Log("triangle");
-                CmdInput = 2;
-            }
+        else if (Input.GetButtonDown("Fire3")) {
+            Debug.Log("triangle");
+            CmdInput = 2;
         }
-        if (Input.GetButtonDown("Fire2")) {
+        else if (Input.GetButtonDown("Fire2")) {
             Attacking = false;
         }
     }
@@ -300,15 +295,18 @@ public class Player : MonoBehaviour {
     }
     private void JumpCharge() {//X
         if (Input.GetButtonDown("Jump") && !jumping && grounded) {
-            UnGround();
-            Jumping = true;
-            
+            //UnGround();
+            //Jumping = true;
+            //Teleport = true;
+            cancelCamMovement = true;
+            stats.MpLeft--;
+            Instantiate(teleportSparks, transform.position, teleportSparks.transform.rotation);
             //Grounded = false;
             //StartCoroutine(WaitToResetGround());
         }
 
     }
-     
+
     private void Teleportation() {//L2
         if (L2.GetButtonDown()) {
             TeleportButton = true;
@@ -327,9 +325,7 @@ public class Player : MonoBehaviour {
 
             }
             if (Input.GetButtonDown("Jump")) {
-                Teleport = true;
-                stats.MpLeft--;
-                Instantiate(teleportSparks,transform.position,teleportSparks.transform.rotation);
+
                 //transform.position = displacement * 5 * Time.deltaTime;
             }
         }
@@ -416,21 +412,24 @@ public class Player : MonoBehaviour {
         }
     }
     private void Jumps() {
-
-        Jumping = true; Debug.Log("fuck yo jump");
-        //StartCoroutine(WaitToStopJump());
+        if (Input.GetButtonDown("Jump") && !jumping && grounded) {
+            Jumping = true; 
+            wallChecker.SetActive(true);
+            Debug.Log("fuck yo jump");
+        }
     }
     private void GroundCheck(bool val) {
         Grounded = val;
-
     }
+    //private void WallCheck(bool val) {
+    //    wallInReach = val;
+    //}
     private void WallCheck(bool val) {
-        wallInReach = val;
+        wallChecker.SetActive(val);
     }
     private void LegLayerControl(int weight) {
         anim.SetLayerWeight(1, weight);
     }
-
     private void TeleportHere(Transform spot) {
         transform.position = spot.position + new Vector3(0, 1, 0);
     }
@@ -501,7 +500,7 @@ public class Player : MonoBehaviour {
         else {
             Teleport = false;
             UIAura.SetActive(true);
-           
+
         }
 
     }

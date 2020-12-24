@@ -80,7 +80,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 2.7340932, g: 3.5922391, b: 3.811765, a: 1}
+    - _EmissionColor: {r: 0, g: 2.1424654, b: 5.512293, a: 1}
     - _EmissionMapChannelMask: {r: 1, g: 1, b: 1, a: 1}
     - _IndirectLightConstColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _OutlineColor: {r: 0.021635097, g: 0, b: 0.8584906, a: 1}

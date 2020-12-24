@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private CinemachineVirtualCamera titleCam;
     [SerializeField] private UnityEvent onPause;
     [SerializeField] private UnityEvent onUnPause;
-
+    [SerializeField] private GameObject spawn;
     public static event UnityAction<Transform> spawnPlayer;
     public static event UnityAction<bool> sealPlayer;
     public static event UnityAction<Transform> setCam;
@@ -104,5 +104,12 @@ public class GameManager : MonoBehaviour {
     }
     private void LoadLevel() {
         SceneManager.LoadSceneAsync(CurrentLevel, LoadSceneMode.Additive);
+    }
+    public void StartGame(int level) {
+        CurrentLevel = level;
+        spawnPoint = spawn;
+    }
+    public void QuitGame() {
+        Application.Quit();
     }
 }

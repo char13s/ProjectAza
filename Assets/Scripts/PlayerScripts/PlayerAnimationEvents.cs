@@ -31,7 +31,7 @@ public class PlayerAnimationEvents : MonoBehaviour {
         playerTarget = GetComponent<PlayerLockon>();
         rbody = GetComponent<Rigidbody>();
         Teleport.vanish += TeleportVanish;
-        SlamState.slam += SmackDown;
+        //SlamState.slam += SmackDown;
     }
     #region Anim Events
     private void Fire() {
@@ -95,6 +95,15 @@ public class PlayerAnimationEvents : MonoBehaviour {
         }
         else {
             slamBox.SetActive(false);
+        }
+    }
+    private void BodyController(int val) {
+        if (val == 0) {
+            player.Body.SetActive(false);
+        }
+        else {
+            player.Body.SetActive(true);
+            Instantiate(vanishEffect, transform.position, vanishEffect.transform.rotation);
         }
     }
     #endregion

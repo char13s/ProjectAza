@@ -10,22 +10,32 @@ public class Dash : StateMachineBehaviour
     public static event UnityAction<bool> bodyControl;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
         player = Player.GetPlayer();
+        player.Moving = false;
         player.CancelCamMovement = true;
-        if (bodyControl != null) {
-            bodyControl(false);
-            
-        }
+        //if (bodyControl != null) {
+        //    bodyControl(false);
+        //    
+        //}
         //trail.SetActive(true);
-        player.Rbody.AddForce(player.transform.forward*moveSpeed,ForceMode.Impulse);
+        player.Rbody.velocity = new Vector3(0,0,0);
+        if (player.Displacement != Vector3.zero) {
+            player.Rbody.AddForce(player.Displacement * moveSpeed, ForceMode.Impulse);
+        }
+        else {
+            player.Rbody.AddForce(player.transform.forward * moveSpeed, ForceMode.Impulse);
+        }
+        
         //player.transform.position = Vector3.MoveTowards(player.transform.position, player.DefaultLockOnPoint.transform.position, moveSpeed);
         //Turn mesh invisible
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
         //make mesh reappear
-        if (bodyControl != null) {
-            bodyControl(true);
-        }
+       if (bodyControl != null) {
+           bodyControl(true);
+       }
         //trail.SetActive(false);
         player.CancelCamMovement = false;
+        player.Teleport = false;
+        //player.Rbody.velocity = new Vector3(0, 0, 0);
     }
 }

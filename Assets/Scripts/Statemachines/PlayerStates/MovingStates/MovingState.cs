@@ -11,10 +11,11 @@ public class MovingState : StateMachineBehaviour
         player = Player.GetPlayer();
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
+        if (!player.CantMove) { 
         speed= player.Displacement * move;
-
+        
         speed.y = player.Rbody.velocity.y;
-        player.Rbody.velocity = speed;
+        player.Rbody.velocity = speed;}
         //player.Rbody.velocity.y = 0;
         //player.transform.position+= player.Displacement * move*Time.delta;
     }

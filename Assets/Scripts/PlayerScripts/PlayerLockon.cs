@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+using Cinemachine;
 #pragma warning disable 0649
 public class PlayerLockon : MonoBehaviour {
     [Header("Obj refs")]
     [SerializeField] private GameObject leftPoint;
     [SerializeField] private GameObject aimPoint;
+    //[SerializeField] private CinemachineVirtualCamera lockOnCam;
     [Space]
     [SerializeField] private float moveSpeed;
     private Player player;
@@ -139,6 +142,8 @@ public class PlayerLockon : MonoBehaviour {
                 closestEnemy = en;
                 if (EnDist(en.gameObject) < enDist) {
                     T = Enemies.IndexOf(en);
+                    player.DefaultLockOnPoint.transform.position = Enemies[T].transform.position;
+                    player.DefaultLockOnPoint.transform.SetParent(Enemies[T].transform);
                 }
             }
         }

@@ -74,7 +74,7 @@ public class PlayerAnimationEvents : MonoBehaviour {
         Instantiate(shadowBall, lefttHand.transform.position, Quaternion.identity);
     }
     private void LightSplash() {
-        Instantiate(splash, groundPointFront.transform.position, Quaternion.identity);
+        Instantiate(splash, groundPointFront.transform.position, splash.transform.rotation);
     }
     private void TeleportVanish() {
         Instantiate(vanishEffect, transform.position, vanishEffect.transform.rotation);
@@ -105,6 +105,9 @@ public class PlayerAnimationEvents : MonoBehaviour {
             player.Body.SetActive(true);
             Instantiate(vanishEffect, transform.position, vanishEffect.transform.rotation);
         }
+    }
+    private void Transform() {
+        player.Hair.SetActive(false);
     }
     #endregion
     #region Coroutines

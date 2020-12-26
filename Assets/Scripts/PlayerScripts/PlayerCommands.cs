@@ -25,7 +25,7 @@ public class PlayerCommands : MonoBehaviour {
         inputs = new List<Inputs>(52);
     }
     void Start() {
-        //fakeUpdate = StartCoroutine(SlowUpdate());
+        fakeUpdate = StartCoroutine(SlowUpdate());
         anim = GetComponent<Animator>();
         Player.lockOn += LockControl;
     }
@@ -115,11 +115,11 @@ public class PlayerCommands : MonoBehaviour {
 
         if (inputs.Contains(Inputs.Triangle) && inputs.Contains(Inputs.Circle)) {
             Debug.Log("Fire!BIcth");
+            Chain = 9;
             ResetChain();
         }
         if (inputs.Contains(Inputs.X)) {
-            Chain = 1;
-            
+            Chain = 1; 
         }
         if (inputs.Contains(Inputs.Square)) {
             Chain = 2;
@@ -135,8 +135,9 @@ public class PlayerCommands : MonoBehaviour {
         }
         if (inputs.Contains(Inputs.X) && inputs.Contains(Inputs.Direction)) {
             Chain = 7;
-            ResetChain();
+            
         }
+
     }
     private void InputCombinations() {
         if (inputs.Contains(Inputs.Square) && inputs.Contains(Inputs.Up)) {

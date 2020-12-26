@@ -39,6 +39,7 @@ public class Player : MonoBehaviour {
     //[SerializeField] private GameObject hitBox;
     [SerializeField] private GameObject dodgeBox;
     [SerializeField] private GameObject wallChecker;
+    [SerializeField] private GameObject hair;
     [Space]
     [Header("Effects")]
     [SerializeField] private GameObject leftDash;
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour {
     private bool skillButton;
     private bool teleportButton;
     private bool lockedOn;
-
+    private bool cantMove;
     private bool cancelCamMovement;
     private static Player instance;
     #region Input seals
@@ -120,6 +121,8 @@ public class Player : MonoBehaviour {
 
     public bool TestButton { get => testButton; set => testButton = value; }
     public GameObject Body { get => body; set => body = value; }
+    public GameObject Hair { get => hair; set => hair = value; }
+    public bool CantMove { get => cantMove; set => cantMove = value; }
     #endregion
     public static Player GetPlayer() => instance;
 
@@ -152,6 +155,7 @@ public class Player : MonoBehaviour {
         GameManager.sealPlayer += SetInputSeal;
         ChainInput.sendChain += ChainControl;
         AirCombos.gravity += GravityControl;
+        PlayerLockon.enemyDetected += AttackState;
         //SlamState.gravity += GravityControl;
         //WallCheckState.wallCheck += WallCheck;
     }
@@ -211,8 +215,8 @@ public class Player : MonoBehaviour {
     }
     private void Move(float x, float y) {
         if (x != 0 || y != 0) {
-
-            Moving = true;
+            if (!cantMove) { 
+            Moving = true;}
             transform.rotation = Quaternion.LookRotation(displacement);
         }
         else {
@@ -252,11 +256,11 @@ public class Player : MonoBehaviour {
     }
     private void Attack() {//square and triangle
         if (Input.GetButtonDown("Fire1")) {
-            CmdInput = 1;
+            //CmdInput = 1;
         }
         else if (Input.GetButtonDown("Fire3")) {
             Debug.Log("triangle");
-            CmdInput = 2;
+            //CmdInput = 2;
         }
         else if (Input.GetButtonDown("Fire2")) {
             Attacking = false;
@@ -398,6 +402,9 @@ public class Player : MonoBehaviour {
     }
     #endregion
     #region Event Methods
+    private void AttackState(bool val) {
+        Attacking = val;
+    }
     private void TeleportToEnemey() {
         if (playerTarget.Enemies.Count > 0) {
             transform.position = playerTarget.EnemyLockedTo().gameObject.transform.position + new Vector3(0, 4, 0);

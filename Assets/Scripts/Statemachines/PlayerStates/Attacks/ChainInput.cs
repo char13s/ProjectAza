@@ -10,4 +10,9 @@ public class ChainInput : StateMachineBehaviour
             sendChain(0);
         }
     }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
+        if (sendChain != null) {
+            sendChain(0);
+        }
+    }
 }

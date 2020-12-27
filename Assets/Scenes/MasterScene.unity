@@ -53596,7 +53596,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169604300}
-  m_LocalRotation: {x: 0.059930276, y: 0.5458537, z: -0.0391861, w: 0.8348153}
+  m_LocalRotation: {x: 0.053640697, y: 0.54613334, z: -0.035073586, w: 0.8352431}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -53700,7 +53700,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184531142}
-  m_LocalRotation: {x: 0.0447355, y: 0.54647607, z: -0.029250817, w: 0.8357673}
+  m_LocalRotation: {x: 0.038439177, y: 0.54668087, z: -0.025133898, w: 0.8360805}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -59330,17 +59330,17 @@ PrefabInstance:
     - target: {fileID: 2175648488605749993, guid: 5d112ea4e5485b7458c1e8ffd71c574d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.509071
+      value: 4.5350394
       objectReference: {fileID: 0}
     - target: {fileID: 2175648488605749993, guid: 5d112ea4e5485b7458c1e8ffd71c574d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.4909487
+      value: 7.4
       objectReference: {fileID: 0}
     - target: {fileID: 2175648488605749993, guid: 5d112ea4e5485b7458c1e8ffd71c574d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2811215
+      value: -2.2697535
       objectReference: {fileID: 0}
     - target: {fileID: 2175648488605749993, guid: 5d112ea4e5485b7458c1e8ffd71c574d,
         type: 3}
@@ -59819,6 +59819,7 @@ GameObject:
   - component: {fileID: 1566064561}
   - component: {fileID: 1566064562}
   - component: {fileID: 1566064563}
+  - component: {fileID: 1566064564}
   m_Layer: 16
   m_Name: Zend
   m_TagString: Player
@@ -59999,6 +60000,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputs: 
+--- !u!114 &1566064564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566064555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 434e293d9c6fa394d8daad4ee84357f3,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: OpenWorldControls
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!4 &1578964839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3790304072089351330, guid: 4922297f759069047a18825563b07cb8,
@@ -60220,7 +60252,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687171466}
-  m_LocalRotation: {x: 0.029566094, y: 0.5469168, z: -0.019332133, w: 0.8364414}
+  m_LocalRotation: {x: 0.023265136, y: 0.54704696, z: -0.015212179, w: 0.8366403}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 public class Player : MonoBehaviour {
     #region Animation states
     private bool moving;
@@ -228,6 +229,11 @@ public class Player : MonoBehaviour {
     }
     private void LstickControlY(float y) {
         LStickY = (int)y;
+    }
+    #endregion
+    #region Action Mappings
+    private void OnAttack(InputValue value) {
+        Debug.Log("Attack");
     }
     #endregion
     #region Inputs

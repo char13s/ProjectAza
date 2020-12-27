@@ -234,6 +234,16 @@ public class Player : MonoBehaviour {
     #region Action Mappings
     private void OnAttack(InputValue value) {
         Debug.Log("Attack");
+        CmdInput = 1;
+    }
+    private void OnEnergyShot() {
+        Debug.Log("Shoot");
+    }
+    private void OnJump() {
+        Debug.Log("Jump");
+    }
+    private void OnStyle() {
+        Debug.Log("Style");
     }
     #endregion
     #region Inputs

@@ -37,18 +37,15 @@ public class PlayerCommands : MonoBehaviour {
         if (lockon) {
             InputCombinations();
         }
-        TriangleButton();
-        XButton();
-        SquareButton();
-        CircleButton();
+        
         if (inputs.Count > 3) {
             ResetChain();
         }
-        
+
 
     }
     private void FixedUpdate() {
-        AnalogInputs();
+        //AnalogInputs();
     }
     private IEnumerator SlowUpdate() {
         YieldInstruction wait = new WaitForSeconds(0.5f);
@@ -76,37 +73,37 @@ public class PlayerCommands : MonoBehaviour {
             AddInput(Inputs.Direction);
         }
     }
-    private void XButton() {
-        if (Input.GetButtonDown("Jump")) {
-            if (sendInput != null) {
-                sendInput("X");
-            }
-            AddInput(Inputs.X);
+    private void OnJump() {
+
+        if (sendInput != null) {
+            sendInput("X");
         }
+        AddInput(Inputs.X);
+
     }
-    private void TriangleButton() {
-        if (Input.GetButtonDown("Fire3")) {
-            if (sendInput != null) {
-                sendInput("Triangle");
-            }
-            AddInput(Inputs.Triangle);
+    private void OnEnergyShot() {
+
+        if (sendInput != null) {
+            sendInput("Triangle");
         }
+        AddInput(Inputs.Triangle);
+
     }
-    private void SquareButton() {
-        if (Input.GetButtonDown("Fire1")) {
-            if (sendInput != null) {
-                sendInput("Square");
-            }
-            AddInput(Inputs.Square);
+    private void OnAttack() {
+
+        if (sendInput != null) {
+            sendInput("Square");
         }
+        AddInput(Inputs.Square);
+
     }
-    private void CircleButton() {
-        if (Input.GetButtonDown("Fire2")) {
-            if (sendInput != null) {
-                sendInput("Circle");
-            }
-            AddInput(Inputs.Circle);
+    private void OnStyle() {
+
+        if (sendInput != null) {
+            sendInput("Circle");
         }
+        AddInput(Inputs.Circle);
+
     }
     private void AddInput(Inputs button) {
         inputs.Add(button);
@@ -119,23 +116,23 @@ public class PlayerCommands : MonoBehaviour {
             ResetChain();
         }
         if (inputs.Contains(Inputs.X)) {
-            Chain = 1; 
+            Chain = 1;
         }
         if (inputs.Contains(Inputs.Square)) {
             Chain = 2;
-            
+
         }
         if (inputs.Contains(Inputs.Triangle)) {
             Chain = 3;
-            
+
         }
         if (inputs.Contains(Inputs.Circle)) {
             Chain = 4;
-            
+
         }
         if (inputs.Contains(Inputs.X) && inputs.Contains(Inputs.Direction)) {
             Chain = 7;
-            
+
         }
 
     }
@@ -164,7 +161,7 @@ public class PlayerCommands : MonoBehaviour {
             Chain = 6;
             ResetChain();
         }
-        
+
 
     }
     private void ResetChain() {

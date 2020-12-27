@@ -164,7 +164,7 @@ public class Player : MonoBehaviour {
         if (!inputSeal) {
             GetInput();
         }
-        Pause();
+        //Pause();
     }
     private IEnumerator SwitchMaterial() {
 
@@ -175,32 +175,32 @@ public class Player : MonoBehaviour {
         }
     }
     private void GetInput() {
-        if (Input.GetButtonDown("TestButton")) {
-            TestButton = true;
-        }
-        if (cmdInput == 0 && !teleport) {
-            MovementControls();
-        }
-        //WallJumping();
-        if (skillButton) {
-            Skills();
-
-        }
-        else {
-            if (!teleportButton) {
-                JumpCharge();
-            }
-            if (!lockedOn) {
-                Attack();
-                ShootLight();
-                Teleportation();
-                Interact();
-            }
-            Phase();
-        }
-        LockOn();
-        SkillButtonControl();
-        Jumps();
+        //if (Input.GetButtonDown("TestButton")) {
+        //    TestButton = true;
+        //}
+        //if (cmdInput == 0 && !teleport) {
+        //    MovementControls();
+        //}
+        ////WallJumping();
+        //if (skillButton) {
+        //    Skills();
+        //
+        //}
+        //else {
+        //    if (!teleportButton) {
+        //        JumpCharge();
+        //    }
+        //    if (!lockedOn) {
+        //        Attack();
+        //        ShootLight();
+        //        Teleportation();
+        //        Interact();
+        //    }
+        //    Phase();
+        //}
+        //LockOn();
+        //SkillButtonControl();
+        //Jumps();
     }
     #region Movement 
     private void MovementControls() {
@@ -237,7 +237,7 @@ public class Player : MonoBehaviour {
     }
     #endregion
     #region Inputs
-
+    /*
     private void Pause() {
         if (Input.GetButtonDown("Pause")) {
             if (pause != null) {
@@ -388,7 +388,7 @@ public class Player : MonoBehaviour {
             PhaseOff();
             //shoot out power down particles
         }
-    }
+    }*/
     private void PhaseUp() {
         mpDrain = StartCoroutine(MpDrain(1));
         current.material = transparent;

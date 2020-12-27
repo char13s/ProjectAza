@@ -13,9 +13,9 @@ public class CmdInputState : StateMachineBehaviour
         
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
-        if (Input.GetButtonDown("Fire2")) {
-            pc.CmdInput = 1;
-        }
+        //if (Input.GetButtonDown("Fire2")) {
+        //    pc.CmdInput = 1;
+        //}
     }
     private void GetInput() {
         

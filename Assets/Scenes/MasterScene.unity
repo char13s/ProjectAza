@@ -6053,7 +6053,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257634954}
-  m_LocalRotation: {x: 0.106076084, y: 0.000000029634181, z: -0.000000003161314, w: 0.994358}
+  m_LocalRotation: {x: 0.106076114, y: 2.0044398e-17, z: -6.7231255e-17, w: 0.994358}
   m_LocalPosition: {x: 9.72, y: 9.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -59871,6 +59871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e3b2d555f62644c87681b04b03224a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  map: {fileID: 0}
   cam: {fileID: 1754881362}
   AzaSword: {fileID: 880540582}
   defaultLockOnPoint: {fileID: 531833616}
@@ -60060,7 +60061,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: OpenWorldControls
+  m_DefaultActionMap: CombatControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &1578964839 stripped

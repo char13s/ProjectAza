@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
     private Rigidbody rbody;
     private PlayerCommands comm;
     private PlayerLockon playerTarget;
+    [SerializeField] private PlayerInput map;
     #endregion
     #region Obj refs
     [Header("Objects")]
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour {
     #region Coroutines
     private Coroutine mpDrain;
     #endregion
-    private Vector3 displacement;
+    private Vector2 displacement;
     private bool skillButton;
     private bool teleportButton;
     private bool lockedOn;
@@ -97,7 +98,7 @@ public class Player : MonoBehaviour {
     #endregion
     #region Getters and Setters
     public bool Moving { get => moving; set { moving = value; anim.SetBool("Moving", moving); } }
-    public Vector3 Displacement { get => displacement; set => displacement = value; }
+    public Vector2 Displacement { get => displacement; set => displacement = value; }
     public int CmdInput { get => cmdInput; set { cmdInput = value; anim.SetInteger("CmdInput", cmdInput); } }
     public bool Attacking { get => attacking; set { attacking = value; anim.SetBool("AttackStance", attacking); } }
     public Rigidbody Rbody { get => rbody; set => rbody = value; }
@@ -157,6 +158,7 @@ public class Player : MonoBehaviour {
         ChainInput.sendChain += ChainControl;
         AirCombos.gravity += GravityControl;
         PlayerLockon.enemyDetected += AttackState;
+        
         //SlamState.gravity += GravityControl;
         //WallCheckState.wallCheck += WallCheck;
     }
@@ -164,7 +166,11 @@ public class Player : MonoBehaviour {
         if (!inputSeal) {
             GetInput();
         }
+        
         //Pause();
+    }
+    private void FixedUpdate() {
+        Move();
     }
     private IEnumerator SwitchMaterial() {
 
@@ -204,21 +210,23 @@ public class Player : MonoBehaviour {
     }
     #region Movement 
     private void MovementControls() {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        Displacement = Vector3.Normalize(new Vector3(x, 0, y));
-        Displacement = cam.transform.TransformDirection(displacement);
-        displacement.y = 0;
-        //Displacement = displacement;
-        Move(x, y);
-        LstickControlX(x);
-        LstickControlY(y);
+        //float x = Input.GetAxis("Horizontal");
+        //float y = Input.GetAxis("Vertical");
+        //Displacement = Vector3.Normalize(new Vector3(x, 0, y));
+        //Displacement = cam.transform.TransformDirection(displacement);
+        //displacement.y = 0;
+        ////Displacement = displacement;
+        ////Move(x, y);
+        //LstickControlX(x);
+        //LstickControlY(y);
     }
-    private void Move(float x, float y) {
-        if (x != 0 || y != 0) {
+    private void Move() {
+        if (displacement.magnitude > Vector2.zero.magnitude) {
             if (!cantMove) { 
             Moving = true;}
-            transform.rotation = Quaternion.LookRotation(displacement);
+            Vector3 rot = Vector3.Normalize(new Vector3(displacement.x, 0, displacement.y));
+            print(rot);
+            transform.rotation = Quaternion.LookRotation(rot);
         }
         else {
             Moving = false;
@@ -232,6 +240,9 @@ public class Player : MonoBehaviour {
     }
     #endregion
     #region Action Mappings
+    private void OnMovement(InputValue value) {
+        displacement=value.Get<Vector2>();
+    }
     private void OnAttack(InputValue value) {
         Debug.Log("Attack");
         CmdInput = 1;
@@ -244,6 +255,20 @@ public class Player : MonoBehaviour {
     }
     private void OnStyle() {
         Debug.Log("Style");
+    }
+    private void OnUp() {
+        Debug.Log("Up");
+    }
+    private void OnLockOn(InputValue value) {//R1
+        
+        if (value.isPressed) {
+            LockedOn = true;
+            cancelCamMovement = true;
+        }
+        else {
+            LockedOn = false;
+            cancelCamMovement = false;
+        }   
     }
     #endregion
     #region Inputs

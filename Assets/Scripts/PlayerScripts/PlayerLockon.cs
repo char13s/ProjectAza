@@ -75,17 +75,17 @@ public class PlayerLockon : MonoBehaviour {
         }
     }
     private void GetInput() {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        //float x = Input.GetAxisRaw("Horizontal");
+        //float y = Input.GetAxisRaw("Vertical");
 
         if (Enemies.Count != 0 && T < Enemies.Count) {
 
-            LockOn(x, y, Enemies[T]);
+            LockOn(Enemies[T]);
         }
-        MovementInputs(x, y);
+        //MovementInputs(x, y);
     }
     public EnemyBaseScript EnemyLockedTo() { return Enemies[T]; }
-    private void LockOn(float x, float y, EnemyBaseScript target) {
+    private void LockOn(EnemyBaseScript target) {
         EnemyLockedTo();
         target.Targeted = true;
         if (target != null) {
@@ -96,10 +96,10 @@ public class PlayerLockon : MonoBehaviour {
                 transform.rotation = Quaternion.LookRotation(delta, Vector3.up);
             }
             //transform.LookAt(Enemies[T].transform.position,Vector3.up);
-            if (player.CmdInput==0) {
-              transform.RotateAround(target.transform.position, target.transform.up, -x * rotationSpeed * moveSpeed * Time.deltaTime);
-              transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * y * Time.deltaTime);
-            }
+            //if (player.CmdInput==0) {
+            //  transform.RotateAround(target.transform.position, target.transform.up, -x * rotationSpeed * moveSpeed * Time.deltaTime);
+            //  transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * y * Time.deltaTime);
+            //}
         }
         if (Enemies[T].Dead) {
             GetClosestEnemy();

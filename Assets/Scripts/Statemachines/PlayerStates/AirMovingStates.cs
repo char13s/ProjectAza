@@ -17,7 +17,9 @@ public class AirMovingStates : StateMachineBehaviour
         //player.Rbody.velocity = speed;
         //player.Rbody.velocity.Set(speed);
         //player.Rbody.velocity.y = 0;
-        player.transform.position+= player.Displacement * move*Time.deltaTime;
+
+
+        //player.transform.position+= player.Displacement * move*Time.deltaTime;
     }
     
 }

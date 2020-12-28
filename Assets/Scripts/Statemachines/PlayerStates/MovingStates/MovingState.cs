@@ -11,8 +11,9 @@ public class MovingState : StateMachineBehaviour
         player = Player.GetPlayer();
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
-        if (!player.CantMove) { 
-        speed= player.Displacement * move;
+        if (!player.CantMove) {
+            Vector3 direction = new Vector3(player.Displacement.x,0, player.Displacement.y);
+        speed= direction * move;
         
         speed.y = player.Rbody.velocity.y;
         player.Rbody.velocity = speed;}

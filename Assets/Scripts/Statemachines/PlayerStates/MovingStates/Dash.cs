@@ -18,7 +18,7 @@ public class Dash : StateMachineBehaviour
         //}
         //trail.SetActive(true);
         player.Rbody.velocity = new Vector3(0,0,0);
-        if (player.Displacement != Vector3.zero) {
+        if (player.Displacement != Vector2.zero) {
             player.Rbody.AddForce(player.Displacement * moveSpeed, ForceMode.Impulse);
         }
         else {

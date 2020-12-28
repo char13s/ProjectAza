@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 public class PlayerCommands : MonoBehaviour {
     private enum Inputs { X, Square, Triangle, Circle, Up, Down, Right, Left, Direction }
     #region Events
@@ -41,8 +42,6 @@ public class PlayerCommands : MonoBehaviour {
         if (inputs.Count > 3) {
             ResetChain();
         }
-
-
     }
     private void FixedUpdate() {
         //AnalogInputs();
@@ -54,24 +53,16 @@ public class PlayerCommands : MonoBehaviour {
             ResetChain();
         }
     }
-    private void AnalogInputs() {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        if (y > 0.7f) {
-            AddInput(Inputs.Up);
-        }
-        if (y < -0.7f) {
-            AddInput(Inputs.Down);
-        }
-        if (x > 0.7f) {
-            AddInput(Inputs.Right);
-        }
-        if (x < -0.7f) {
-            AddInput(Inputs.Left);
-        }
-        if (x > 0.7f || y > 0.7f) {
+    private void OnMovement(InputValue value) {
+        
             AddInput(Inputs.Direction);
-        }
+        
+    }
+    private void OnDash(InputValue value) {
+        //Chain = 7;
+    }
+    private void OnUp() {
+        AddInput(Inputs.Up);
     }
     private void OnJump() {
 
@@ -105,6 +96,9 @@ public class PlayerCommands : MonoBehaviour {
         AddInput(Inputs.Circle);
 
     }
+    private void OnShoot() {
+        Chain = 16;
+    }
     private void AddInput(Inputs button) {
         inputs.Add(button);
     }
@@ -131,8 +125,8 @@ public class PlayerCommands : MonoBehaviour {
 
         }
         if (inputs.Contains(Inputs.X) && inputs.Contains(Inputs.Direction)) {
-            Chain = 7;
 
+            Chain = 7;
         }
 
     }
@@ -161,8 +155,6 @@ public class PlayerCommands : MonoBehaviour {
             Chain = 6;
             ResetChain();
         }
-
-
     }
     private void ResetChain() {
         inputs.Clear();

@@ -68,6 +68,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "HoldAttack",
+                    "type": "Button",
+                    "id": "96bd76f4-998d-490b-975c-db8d21c25a73",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "HoldEnergy",
+                    "type": "Button",
+                    "id": "07598201-ecce-49fe-9424-816607c9f85a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -235,6 +251,28 @@
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1135f9c4-98bf-458c-ad71-249d13a0492e",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0e54638-7881-4b12-b34c-82efed46d9a3",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldEnergy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

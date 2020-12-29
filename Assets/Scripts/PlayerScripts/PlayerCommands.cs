@@ -99,6 +99,12 @@ public class PlayerCommands : MonoBehaviour {
     private void OnShoot() {
         Chain = 16;
     }
+    private void OnHoldAttack() {
+        Chain = 15;
+    }
+    private void OnHoldEnergy() {
+        Chain = 17;
+    }
     private void AddInput(Inputs button) {
         inputs.Add(button);
     }

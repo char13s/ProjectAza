@@ -6053,7 +6053,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257634954}
-  m_LocalRotation: {x: 0.106076084, y: -0.000000029634181, z: 0.000000003161314, w: 0.994358}
+  m_LocalRotation: {x: 0.106076114, y: -2.0044398e-17, z: 6.7231255e-17, w: 0.994358}
   m_LocalPosition: {x: 9.72, y: 9.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -26079,7 +26079,6 @@ GameObject:
   m_Component:
   - component: {fileID: 678436166}
   - component: {fileID: 678436165}
-  - component: {fileID: 678436167}
   m_Layer: 0
   m_Name: LockonCam (1)
   m_TagString: Untagged
@@ -26137,24 +26136,6 @@ Transform:
   m_Father: {fileID: 16505195}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &678436167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678436164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1562560ce45eb134ca83bb95be070ef4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetObject: {fileID: 1566064555}
-  currentEulerAngles: {x: 0, y: 0, z: 0}
-  maxXRotation: 40
-  minXRotation: 0
-  distance: 5
-  target: {x: 0, y: 0, z: 0}
 --- !u!1 &689323061
 GameObject:
   m_ObjectHideFlags: 3
@@ -37175,6 +37156,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1120846036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2175648488605749995, guid: 5d112ea4e5485b7458c1e8ffd71c574d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1388825853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1120846037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120846036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3049031a70ed2d49aeccee9e3ecef04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LookSpeed: 1
+  InvertY: 0
 --- !u!1 &1155880805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e41bd61505ef4e04e9ef52cda1a2d537,
@@ -53602,7 +53603,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169604300}
-  m_LocalRotation: {x: 0.053640693, y: 0.54613334, z: -0.035073582, w: 0.8352431}
+  m_LocalRotation: {x: 0.053640697, y: 0.54613334, z: -0.035073586, w: 0.8352431}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -59695,13 +59696,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467780490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
-  m_NotificationBehavior: 0
+  m_Actions: {fileID: -944628639613478452, guid: d235d06139150df4c921b2cb33075daa,
+    type: 3}
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -59712,10 +59714,66 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3b597c46-93b1-48e8-9e64-9ddf9d56829c
+    m_ActionName: CombatControls/Attack[/Keyboard/z,/DualShock4GamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4b44099d-49b5-4e4b-be61-0cb9cad7c0af
+    m_ActionName: CombatControls/Style[/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 69d46d1d-f047-46cc-a52f-7a976e799c3e
+    m_ActionName: CombatControls/EnergyShot[/DualShock4GamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5f1b8a9c-b2f7-47ca-a908-acf96ca3c238
+    m_ActionName: CombatControls/Jump[/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0a11bc2d-ebee-4bdc-88a9-24d77b8596df
+    m_ActionName: CombatControls/Up[/DualShock4GamepadHID/leftStick/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 531bffe0-ae3d-4338-9119-8f0edcd7f38b
+    m_ActionName: CombatControls/LockOn[/DualShock4GamepadHID/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c883b51-4775-4600-9794-fe09cc5a6625
+    m_ActionName: CombatControls/Movement[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: efb5db39-f6f0-4621-b8d5-a420b56a74f0
+    m_ActionName: CombatControls/Shoot[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 96bd76f4-998d-490b-975c-db8d21c25a73
+    m_ActionName: CombatControls/HoldAttack[/DualShock4GamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 07598201-ecce-49fe-9424-816607c9f85a
+    m_ActionName: CombatControls/HoldEnergy[/DualShock4GamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1120846037}
+        m_TargetAssemblyTypeName: FreeLookAddOn, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: feb173cc-190d-4ba1-8946-145f2349b7d2
+    m_ActionName: OpenWorldControls/Look[/DualShock4GamepadHID/rightStick/up,/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/rightStick/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: OpenWorldControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &1468022902

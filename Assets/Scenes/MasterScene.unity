@@ -6053,7 +6053,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257634954}
-  m_LocalRotation: {x: 0.106076114, y: -2.0044398e-17, z: 6.7231255e-17, w: 0.994358}
+  m_LocalRotation: {x: 0.106076084, y: -0.000000029634181, z: 0.000000003161314, w: 0.994358}
   m_LocalPosition: {x: 9.72, y: 9.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -58621,7 +58621,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234630167}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.3, y: 5, z: 8.38}
+  m_LocalPosition: {x: 7.3, y: 1, z: 8.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 759297194}
@@ -58988,7 +58988,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh112516
+  m_Name: pb_Mesh19644
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -59696,7 +59696,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467780490}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -59771,6 +59771,30 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: feb173cc-190d-4ba1-8946-145f2349b7d2
     m_ActionName: OpenWorldControls/Look[/DualShock4GamepadHID/rightStick/up,/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/rightStick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 10d85e18-bf7f-481a-a788-a29c09a6de4b
+    m_ActionName: OpenWorldControls/Movement[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right,/DualShock4GamepadHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8141f6c4-43e5-4314-99df-2fcaf13363ab
+    m_ActionName: OpenWorldControls/Interact[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94315bfc-9ea0-42d6-b053-fc106eac100b
+    m_ActionName: OpenWorldControls/Jump[/DualShock4GamepadHID/buttonSouth,/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8b0b942c-1f58-4435-b956-ae428c7a643e
+    m_ActionName: OpenWorldControls/LightDash[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0f02244d-88f4-4edb-86b8-02e6e43bf1ed
+    m_ActionName: AirControls/Slam[/DualShock4GamepadHID/buttonWest,/DualShock4GamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16f824af-aacf-406e-bf32-faa3baf21ae6
+    m_ActionName: AirControls/AirAttack[/DualShock4GamepadHID/buttonWest,/DualShock4GamepadHID/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: OpenWorldControls
@@ -59945,6 +59969,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 0}
+  map0:
+    m_Name: Map 0
+    m_Id: 0965ce8a-3d38-4233-8d1d-31c7bfb04580
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
   cam: {fileID: 1754881362}
   AzaSword: {fileID: 880540582}
   defaultLockOnPoint: {fileID: 531833616}
@@ -60358,7 +60388,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687171466}
-  m_LocalRotation: {x: 0.023265136, y: 0.54704696, z: -0.015212179, w: 0.8366403}
+  m_LocalRotation: {x: 0.02326513, y: 0.5470469, z: -0.015212174, w: 0.83664036}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

@@ -19,12 +19,15 @@ public class PlayerLockon : MonoBehaviour {
     private float rotationSpeed;
     private bool rotLock;
     private int t;
+    private bool detected;
     public float RotationSpeed { get => rotationSpeed; set { rotationSpeed = value; Mathf.Clamp(value, 5, 8); } }
-
+    
     public int T { get => t; set => t = value; }
 
     public static UnityAction<bool> enemyDetected;
+    public static event UnityAction<int> switchMaps;
     public List<EnemyBaseScript> Enemies { get => enemies; set => enemies = value; }
+    public bool Detected { get => detected; set { detected = value; } }
 
     public static PlayerLockon GetLockon() => instance;
     private void Awake() {
@@ -45,15 +48,15 @@ public class PlayerLockon : MonoBehaviour {
     void Update() {
         UpdateEnemyList();
         EnemyFound();
-        if (player.LockedOn) {
-            if (Enemies.Count == 0 && player.CmdInput == 0) {
-                BasicMovement();
-            }
-            else {
-        
-                GetInput();
-            }
-        }
+        //if (player.LockedOn) {
+        //    if (Enemies.Count == 0 && player.CmdInput == 0) {
+        //        BasicMovement();
+        //    }
+        //    else {
+        //
+        //        GetInput();
+        //    }
+        //}
     }
     private void UpdateEnemyList() {
         Vector3 position = transform.position;
@@ -123,15 +126,25 @@ public class PlayerLockon : MonoBehaviour {
         }
     }
     private void EnemyFound() {
-        if (enemies.Count > 0) {
+        if (enemies.Count > 0&&!detected) {
             if (enemyDetected != null) {
                 enemyDetected(true);
             }
+            if (switchMaps != null) {
+                switchMaps(1);
+            }
+            print("how back?");
+            detected = true;
         }
-        else {
+        else if(enemies.Count ==0 && detected){
             if (enemyDetected != null) {
                 enemyDetected(false);
             }
+            if (switchMaps != null) {
+                switchMaps(0);
+            }
+            detected = false;
+            print("wayyy back?");
         }
     }
     private void GetClosestEnemy() {

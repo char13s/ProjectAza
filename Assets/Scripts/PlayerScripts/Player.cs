@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
     private bool teleport;
     private bool shoot;
     private bool testButton;
+    private bool lightDash;
     #endregion
     #region Script refs
     private Animator anim;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour {
     private PlayerCommands comm;
     private PlayerLockon playerTarget;
     [SerializeField] private PlayerInput map;
+    [SerializeField] private InputActionMap map0;
     #endregion
     #region Obj refs
     [Header("Objects")]
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour {
     private Coroutine mpDrain;
     #endregion
     private Vector2 displacement;
+    private Vector3 direction;
     private bool skillButton;
     private bool teleportButton;
     private bool lockedOn;
@@ -108,7 +111,7 @@ public class Player : MonoBehaviour {
     public int SkillId { get => skillId; set { skillId = value; anim.SetInteger("SkillId", skillId); } }
 
     public bool TeleportButton { get => teleportButton; set { teleportButton = value; anim.SetBool("TeleportButton", teleportButton); } }
-
+     
     public GameObject DefaultLockOnPoint { get => defaultLockOnPoint; set => defaultLockOnPoint = value; }
     public bool CancelCamMovement { get => cancelCamMovement; set => cancelCamMovement = value; }
     public bool LockedOn { get => lockedOn; set { lockedOn = value; CancelCamMovement = value; if (lockOn != null) { lockOn(value); } } }
@@ -125,6 +128,9 @@ public class Player : MonoBehaviour {
     public GameObject Body { get => body; set => body = value; }
     public GameObject Hair { get => hair; set => hair = value; }
     public bool CantMove { get => cantMove; set => cantMove = value; }
+    public bool LightDash { get => lightDash; set { lightDash = value; anim.SetBool("LightDash",lightDash); } }
+
+    public Vector3 Direction { get => direction; set => direction = value; }
     #endregion
     public static Player GetPlayer() => instance;
 
@@ -135,6 +141,7 @@ public class Player : MonoBehaviour {
         else {
             instance = this;
         }
+        map = GetComponent<PlayerInput>();
         anim = GetComponent<Animator>();
         Rbody = GetComponent<Rigidbody>();
         current = meshRef.GetComponent<SkinnedMeshRenderer>();
@@ -158,7 +165,8 @@ public class Player : MonoBehaviour {
         ChainInput.sendChain += ChainControl;
         AirCombos.gravity += GravityControl;
         PlayerLockon.enemyDetected += AttackState;
-        
+        PlayerLockon.switchMaps += SwitchControls;
+        LightDashing.sparkle += LightUp;
         //SlamState.gravity += GravityControl;
         //WallCheckState.wallCheck += WallCheck;
     }
@@ -221,11 +229,13 @@ public class Player : MonoBehaviour {
         //LstickControlY(y);
     }
     private void Move() {
-        if (displacement.magnitude > Vector2.zero.magnitude) {
+        //Displacement = cam.transform.TransformDirection(displacement);
+        if (displacement.magnitude != Vector2.zero.magnitude) {
             if (!cantMove) { 
-            Moving = true;}
-            Vector3 rot = Vector3.Normalize(new Vector3(displacement.x, 0, displacement.y));
-            print(rot);
+            Moving = true;
+            }
+            direction.y = 0;
+            Vector3 rot = Vector3.Normalize(direction);
             transform.rotation = Quaternion.LookRotation(rot);
         }
         else {
@@ -241,7 +251,10 @@ public class Player : MonoBehaviour {
     #endregion
     #region Action Mappings
     private void OnMovement(InputValue value) {
-        displacement=value.Get<Vector2>();
+        Displacement=value.Get<Vector2>();
+        Direction= cam.transform.TransformDirection(new Vector3(displacement.x, 0, displacement.y));
+        
+        //Debug.Log("Love");
     }
     private void OnAttack(InputValue value) {
         Debug.Log("Attack");
@@ -258,6 +271,19 @@ public class Player : MonoBehaviour {
     }
     private void OnUp() {
         Debug.Log("Up");
+    }
+    //private void OnLook(InputValue value) {
+    //    Vector2 roto= value.Get<Vector2>();
+    //    Vector3 rot = Vector3.Normalize(new Vector3(roto.x, 0, roto.y));
+    //    
+    //}
+    private void OnLightDash(InputValue value) {
+        if (value.isPressed) {
+            LightDash = true;
+        }
+        else {
+            LightDash = false;
+        }
     }
     private void OnLockOn(InputValue value) {//R1
         
@@ -443,6 +469,17 @@ public class Player : MonoBehaviour {
     }
     #endregion
     #region Event Methods
+    private void SwitchControls(int val) {
+        //switch (val) {
+        //    case 0:
+        //        map.SwitchCurrentActionMap("OpenWorldControls");
+        //        break;
+        //    case 1:
+        //        map.SwitchCurrentActionMap("CombatControls");
+        //        break;
+        //}
+        //print(map.currentActionMap);
+    }
     private void AttackState(bool val) {
         Attacking = val;
     }
@@ -487,7 +524,40 @@ public class Player : MonoBehaviour {
     private void GravityControl(bool val) {
         rbody.useGravity = val;
     }
+    private void SummonWeapon(bool val) {
+        //Instantiate(swordSpawn, transform.position, Quaternion.identity);
+        AzaSword.SetActive(val);
+    }
+    private void SetInputSeal(bool val) {
+        inputSeal = val;
+    }
+    private void BodyControl(bool val) {
+        Body.SetActive(val);
+        spawnIn.SetActive(val);
+        if (val) {
+            UIAura.SetActive(false);
+            rbody.velocity = new Vector3(0, 0, 0);
+            Instantiate(teleportSparks, transform.position, teleportSparks.transform.rotation);
+        }
+        else {
+            Teleport = false;
+            UIAura.SetActive(true);
+
+        }
+
+    }
+    private void LightUp(bool val) {
+        UIAura.SetActive(val);
+
+    }
+    private void Jumped(float val) {
+        UnGround();
+        Grounded = false;
+        Rbody.AddForce(new Vector3(0, val, 0), ForceMode.Impulse);
+        StartCoroutine(WaitToResetGround());
+    }
     #endregion
+    #region Coroutines
     private IEnumerator MpDrain(int rate) {
         YieldInstruction wait = new WaitForSeconds(rate);
         while (isActiveAndEnabled) {
@@ -518,40 +588,17 @@ public class Player : MonoBehaviour {
         Jumping = false;
         ReadyJump = false;
     }
-    private void Jumped(float val) {
-        UnGround();
-        Grounded = false;
-        Rbody.AddForce(new Vector3(0, val, 0), ForceMode.Impulse);
-        StartCoroutine(WaitToResetGround());
-    }
+
+    #endregion
+    
+    
     private void UnGround() {
         GroundChecker.grounded -= GroundCheck;
     }
     private void UnWall() {
         WallChecker.stickToWall -= WallCheck;
     }
-    private void SummonWeapon(bool val) {
-        //Instantiate(swordSpawn, transform.position, Quaternion.identity);
-        AzaSword.SetActive(val);
-    }
-    private void SetInputSeal(bool val) {
-        inputSeal = val;
-    }
-    private void BodyControl(bool val) {
-        Body.SetActive(val);
-        spawnIn.SetActive(val);
-        if (val) {
-            UIAura.SetActive(false);
-            rbody.velocity = new Vector3(0, 0, 0);
-            Instantiate(teleportSparks, transform.position, teleportSparks.transform.rotation);
-        }
-        else {
-            Teleport = false;
-            UIAura.SetActive(true);
-
-        }
-
-    }
+    
     #region Cooldowns
     private IEnumerator WaitToTeleport() {
         YieldInstruction wait = new WaitForSeconds(4);

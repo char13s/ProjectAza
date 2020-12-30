@@ -6053,7 +6053,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257634954}
-  m_LocalRotation: {x: 0.106076084, y: -0.000000029634181, z: 0.000000003161314, w: 0.994358}
+  m_LocalRotation: {x: 0.106076114, y: -2.0044398e-17, z: 6.7231255e-17, w: 0.994358}
   m_LocalPosition: {x: 9.72, y: 9.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -37169,13 +37169,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120846036}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3049031a70ed2d49aeccee9e3ecef04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookSpeed: 1
+  LookSpeed: 0.36
   InvertY: 0
+--- !u!114 &1120846040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120846036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  XYAxis: {fileID: -8999331648325062251, guid: d235d06139150df4c921b2cb33075daa, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1155880805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e41bd61505ef4e04e9ef52cda1a2d537,
@@ -53603,7 +53618,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169604300}
-  m_LocalRotation: {x: 0.053640697, y: 0.54613334, z: -0.035073586, w: 0.8352431}
+  m_LocalRotation: {x: 0.053640693, y: 0.54613334, z: -0.035073582, w: 0.8352431}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -58646,7 +58661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1248055093
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -59525,7 +59540,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1467780491}
   - component: {fileID: 1467780492}
-  - component: {fileID: 1467780493}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -59689,117 +59703,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   spawn: {fileID: 1234630167}
---- !u!114 &1467780493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467780490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d235d06139150df4c921b2cb33075daa,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3b597c46-93b1-48e8-9e64-9ddf9d56829c
-    m_ActionName: CombatControls/Attack[/Keyboard/z,/DualShock4GamepadHID/buttonWest]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4b44099d-49b5-4e4b-be61-0cb9cad7c0af
-    m_ActionName: CombatControls/Style[/DualShock4GamepadHID/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 69d46d1d-f047-46cc-a52f-7a976e799c3e
-    m_ActionName: CombatControls/EnergyShot[/DualShock4GamepadHID/buttonNorth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5f1b8a9c-b2f7-47ca-a908-acf96ca3c238
-    m_ActionName: CombatControls/Jump[/DualShock4GamepadHID/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0a11bc2d-ebee-4bdc-88a9-24d77b8596df
-    m_ActionName: CombatControls/Up[/DualShock4GamepadHID/leftStick/up]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 531bffe0-ae3d-4338-9119-8f0edcd7f38b
-    m_ActionName: CombatControls/LockOn[/DualShock4GamepadHID/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7c883b51-4775-4600-9794-fe09cc5a6625
-    m_ActionName: CombatControls/Movement[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: efb5db39-f6f0-4621-b8d5-a420b56a74f0
-    m_ActionName: CombatControls/Shoot[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/buttonNorth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 96bd76f4-998d-490b-975c-db8d21c25a73
-    m_ActionName: CombatControls/HoldAttack[/DualShock4GamepadHID/buttonWest]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 07598201-ecce-49fe-9424-816607c9f85a
-    m_ActionName: CombatControls/HoldEnergy[/DualShock4GamepadHID/buttonNorth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1120846037}
-        m_TargetAssemblyTypeName: FreeLookAddOn, Assembly-CSharp
-        m_MethodName: OnLook
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: feb173cc-190d-4ba1-8946-145f2349b7d2
-    m_ActionName: OpenWorldControls/Look[/DualShock4GamepadHID/rightStick/up,/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/rightStick/right]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 10d85e18-bf7f-481a-a788-a29c09a6de4b
-    m_ActionName: OpenWorldControls/Movement[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right,/DualShock4GamepadHID/leftStick/right]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8141f6c4-43e5-4314-99df-2fcaf13363ab
-    m_ActionName: OpenWorldControls/Interact[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 94315bfc-9ea0-42d6-b053-fc106eac100b
-    m_ActionName: OpenWorldControls/Jump[/DualShock4GamepadHID/buttonSouth,/DualShock4GamepadHID/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8b0b942c-1f58-4435-b956-ae428c7a643e
-    m_ActionName: OpenWorldControls/LightDash[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID/leftTrigger]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0f02244d-88f4-4edb-86b8-02e6e43bf1ed
-    m_ActionName: AirControls/Slam[/DualShock4GamepadHID/buttonWest,/DualShock4GamepadHID/buttonWest]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 16f824af-aacf-406e-bf32-faa3baf21ae6
-    m_ActionName: AirControls/AirAttack[/DualShock4GamepadHID/buttonWest,/DualShock4GamepadHID/buttonWest]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: OpenWorldControls
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &1468022902
 GameObject:
   m_ObjectHideFlags: 0
@@ -60030,7 +59933,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 68.5
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -60164,7 +60067,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: CombatControls
+  m_DefaultActionMap: OpenWorldControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &1578964839 stripped

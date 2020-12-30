@@ -1,0 +1,5 @@
+<sbspresets count="1" formatversion="1.1">
+  <sbspreset pkgurl="pkg://BrickPath0" label="" >
+  <presetinput identifier="$outputsize" uid="241718133" type="8" value="9,9" />
+ </sbspreset>
+</sbspresets>

@@ -26,8 +26,8 @@ public class Player : MonoBehaviour {
     private Rigidbody rbody;
     private PlayerCommands comm;
     private PlayerLockon playerTarget;
-    [SerializeField] private PlayerInput map;
-    [SerializeField] private InputActionMap map0;
+    private PlayerInput map;
+    
     #endregion
     #region Obj refs
     [Header("Objects")]
@@ -167,6 +167,7 @@ public class Player : MonoBehaviour {
         PlayerLockon.enemyDetected += AttackState;
         PlayerLockon.switchMaps += SwitchControls;
         LightDashing.sparkle += LightUp;
+        LightDashing.vanish += BodyControl;
         //SlamState.gravity += GravityControl;
         //WallCheckState.wallCheck += WallCheck;
     }
@@ -264,7 +265,7 @@ public class Player : MonoBehaviour {
         Debug.Log("Shoot");
     }
     private void OnJump() {
-        Debug.Log("Jump");
+        comm.Chain = 1;
     }
     private void OnStyle() {
         Debug.Log("Style");
@@ -272,6 +273,7 @@ public class Player : MonoBehaviour {
     private void OnUp() {
         Debug.Log("Up");
     }
+    //private void 
     //private void OnLook(InputValue value) {
     //    Vector2 roto= value.Get<Vector2>();
     //    Vector3 rot = Vector3.Normalize(new Vector3(roto.x, 0, roto.y));
@@ -470,14 +472,14 @@ public class Player : MonoBehaviour {
     #endregion
     #region Event Methods
     private void SwitchControls(int val) {
-        //switch (val) {
-        //    case 0:
-        //        map.SwitchCurrentActionMap("OpenWorldControls");
-        //        break;
-        //    case 1:
-        //        map.SwitchCurrentActionMap("CombatControls");
-        //        break;
-        //}
+       switch (val) {
+           case 0:
+               map.SwitchCurrentActionMap("OpenWorldControls");
+               break;
+           case 1:
+               map.SwitchCurrentActionMap("CombatControls");
+               break;
+       }
         //print(map.currentActionMap);
     }
     private void AttackState(bool val) {

@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+
 public class Player : MonoBehaviour {
     #region Animation states
-    private bool moving;
-    private bool attacking;
-    private int cmdInput;
-    private bool jumping;
-    private bool readyJump;
-    private bool grounded;
-    private int lStickX;
-    private int lStickY;
-    private bool wallInReach;
-    private bool wallStuck;
-    private int skillId;
+    private bool moving, attacking, jumping, readyJump, grounded, wallInReach, wallStuck;
+    private int cmdInput,skillId;
+    private int lStickX,lStickY;
     private bool teleport;
     private bool shoot;
     private bool testButton;
@@ -218,17 +211,6 @@ public class Player : MonoBehaviour {
         //Jumps();
     }
     #region Movement 
-    private void MovementControls() {
-        //float x = Input.GetAxis("Horizontal");
-        //float y = Input.GetAxis("Vertical");
-        //Displacement = Vector3.Normalize(new Vector3(x, 0, y));
-        //Displacement = cam.transform.TransformDirection(displacement);
-        //displacement.y = 0;
-        ////Displacement = displacement;
-        ////Move(x, y);
-        //LstickControlX(x);
-        //LstickControlY(y);
-    }
     private void Move() {
         //Displacement = cam.transform.TransformDirection(displacement);
         if (displacement.magnitude != Vector2.zero.magnitude) {
@@ -273,12 +255,12 @@ public class Player : MonoBehaviour {
     private void OnUp() {
         Debug.Log("Up");
     }
-    //private void 
-    //private void OnLook(InputValue value) {
-    //    Vector2 roto= value.Get<Vector2>();
-    //    Vector3 rot = Vector3.Normalize(new Vector3(roto.x, 0, roto.y));
-    //    
-    //}
+    private void OnPause() {
+        if (pause != null) {
+            pause();
+        }
+
+    }
     private void OnLightDash(InputValue value) {
         if (value.isPressed) {
             LightDash = true;
@@ -301,13 +283,6 @@ public class Player : MonoBehaviour {
     #endregion
     #region Inputs
     /*
-    private void Pause() {
-        if (Input.GetButtonDown("Pause")) {
-            if (pause != null) {
-                pause();
-            }
-        }
-    }
     private void ShootLight() {
         if (Input.GetButtonDown("Fire3")) {
             Shoot = true;
@@ -323,49 +298,6 @@ public class Player : MonoBehaviour {
             SkillButton = false;
         }
     }
-    private void Attack() {//square and triangle
-        if (Input.GetButtonDown("Fire1")) {
-            //CmdInput = 1;
-        }
-        else if (Input.GetButtonDown("Fire3")) {
-            Debug.Log("triangle");
-            //CmdInput = 2;
-        }
-        else if (Input.GetButtonDown("Fire2")) {
-            Attacking = false;
-        }
-    }
-    private void WallJumping() {
-        if (wallInReach) {
-
-            if (Input.GetButtonDown("Fire1")) {
-                rbody.useGravity = false;
-                rbody.velocity = new Vector3(0, 0, 0);
-
-                wallStuck = true;
-            }
-            if (Input.GetButton("Fire1")) {
-
-            }
-            if (Input.GetButtonUp("Fire1")) {
-                Debug.Log("up");
-                wallStuck = false;
-                rbody.useGravity = true;
-            }
-        }
-        if (wallStuck) {
-            if (Input.GetButtonDown("Jump")) {
-                wallStuck = false;
-
-                //UnWall();
-                //StartCoroutine(WaitToResetWallCheck());
-                rbody.useGravity = true;
-                wallInReach = false;
-                Debug.Log("wall hop");
-                rbody.AddForce(new Vector3(0, 15, 0), ForceMode.VelocityChange);
-            }
-        }
-    }
     private void JumpCharge() {//X
         if (Input.GetButtonDown("Jump") && !jumping && grounded) {
             //UnGround();
@@ -378,30 +310,6 @@ public class Player : MonoBehaviour {
             //StartCoroutine(WaitToResetGround());
         }
 
-    }
-
-    private void Teleportation() {//L2
-        if (L2.GetButtonDown()) {
-            TeleportButton = true;
-        }
-        if (L2.GetButtonUp()) {
-            TeleportButton = false;
-        }
-        if (TeleportButton) {
-            if (Input.GetButtonDown("Fire1")) {
-
-            }
-            if (Input.GetButtonDown("Fire2")) {
-
-            }
-            if (Input.GetButtonDown("Fire3")) {
-
-            }
-            if (Input.GetButtonDown("Jump")) {
-
-                //transform.position = displacement * 5 * Time.deltaTime;
-            }
-        }
     }
     private void Skills() {//R2
         if (Input.GetButtonDown("Fire1") && stats.MpLeft >= square.MpRequired) {
@@ -420,16 +328,6 @@ public class Player : MonoBehaviour {
         if (Input.GetButtonDown("Jump") && stats.MpLeft >= x.MpRequired) {
             SkillId = x.ID;
             stats.MpLeft -= x.MpRequired;
-        }
-    }
-    private void LockOn() {//R1
-        if (Input.GetButtonDown("R1")) {
-            LockedOn = true;
-            cancelCamMovement = true;
-        }
-        if (Input.GetButtonUp("R1")) {
-            LockedOn = false;
-            cancelCamMovement = false;
         }
     }
     private void Interact() {////circle

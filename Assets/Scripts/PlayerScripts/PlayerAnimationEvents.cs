@@ -84,6 +84,7 @@ public class PlayerAnimationEvents : MonoBehaviour {
     private void RiseHit(int val) {
         if (val == 1) {
             riseHitBox.SetActive(true);
+            Debug.Log("OKAYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
         }
         else {
             riseHitBox.SetActive(false);

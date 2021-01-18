@@ -48,14 +48,14 @@ public class PlayerLockon : MonoBehaviour {
     void Update() {
         UpdateEnemyList();
         EnemyFound();
-        //if (player.LockedOn) {
+        if (player.LockedOn) {
         //    if (Enemies.Count == 0 && player.CmdInput == 0) {
         //        BasicMovement();
         //    }
         //    else {
         //
-        //        GetInput();
-        //    }
+                GetInput();
+            }
         //}
     }
     private void UpdateEnemyList() {

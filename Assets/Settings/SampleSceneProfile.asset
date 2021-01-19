@@ -33,7 +33,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.35641193, g: 0.12130654, b: 0.8867924, a: 1}
+    m_Value: {r: 0.4351639, g: 0.24701849, b: 0.8584906, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1

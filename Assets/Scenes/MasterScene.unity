@@ -864,6 +864,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3743747815909794120, guid: 6571bca9e6c87794883b719487f9da19,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -1987505316041081205, guid: 6571bca9e6c87794883b719487f9da19,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -884,8 +889,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: KatanaStance
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6571bca9e6c87794883b719487f9da19,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6571bca9e6c87794883b719487f9da19, type: 3}
+--- !u!4 &156811649 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5842896645428909622, guid: 6571bca9e6c87794883b719487f9da19,
+    type: 3}
+  m_PrefabInstance: {fileID: 156811648}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &187437915 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9089838971861034943, guid: c6d17c430a42c634c8cf5355325cd15b,
@@ -6137,7 +6153,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257634954}
-  m_LocalRotation: {x: 0.106076114, y: -2.0044398e-17, z: 6.7231255e-17, w: 0.994358}
+  m_LocalRotation: {x: 0.106076084, y: 0.000000029634181, z: -0.000000003161314, w: 0.994358}
   m_LocalPosition: {x: 9.72, y: 9.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15990,12 +16006,42 @@ PrefabInstance:
     - target: {fileID: -4444165596418013063, guid: 4922297f759069047a18825563b07cb8,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3910615477526835975, guid: 4922297f759069047a18825563b07cb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: dad5d51face1cc044843323cc30c41e7, type: 2}
+    - target: {fileID: -3910615477526835975, guid: 4922297f759069047a18825563b07cb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 99611ebf03150d1498dd1b809b1fe1e3, type: 2}
+    - target: {fileID: -3910615477526835975, guid: 4922297f759069047a18825563b07cb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 316ecfc9e7909504692e41060bd73be5, type: 2}
+    - target: {fileID: -3550500016980982906, guid: 4922297f759069047a18825563b07cb8,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -22513864403649699, guid: 4922297f759069047a18825563b07cb8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4922297f759069047a18825563b07cb8,
         type: 3}
       propertyPath: m_Name
       value: Attack1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1465958402745651519, guid: 4922297f759069047a18825563b07cb8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7226829907016799998, guid: 4922297f759069047a18825563b07cb8,
         type: 3}
@@ -16043,6 +16089,18 @@ PrefabInstance:
 --- !u!1 &318870420 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4922297f759069047a18825563b07cb8,
+    type: 3}
+  m_PrefabInstance: {fileID: 318870419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &318870421 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -22513864403649699, guid: 4922297f759069047a18825563b07cb8,
+    type: 3}
+  m_PrefabInstance: {fileID: 318870419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &318870422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3550500016980982906, guid: 4922297f759069047a18825563b07cb8,
     type: 3}
   m_PrefabInstance: {fileID: 318870419}
   m_PrefabAsset: {fileID: 0}
@@ -64957,10 +65015,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e3b2d555f62644c87681b04b03224a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  katana: {fileID: 0}
-  fist: {fileID: 0}
+  katana: {fileID: 318870422}
+  scabbard: {fileID: 318870421}
+  fistL: {fileID: 7263110435207028981}
+  fistR: {fileID: 1432071941393884488}
   wand: {fileID: 0}
-  azaSword: {fileID: 0}
+  azaSword: {fileID: 880540582}
   greatSword: {fileID: 0}
   cam: {fileID: 1754881362}
   defaultLockOnPoint: {fileID: 531833616}
@@ -76547,8 +76607,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.5, y: 7.8093905, z: 0.23697016}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2107379321499248786}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76653,6 +76712,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58d54f63eb2c52048b1d59b0eb29d8b8, type: 3}
+--- !u!1 &1432071941393884488 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6110316477919272933, guid: c59f2067ef196084daa162d70c31a490,
+    type: 3}
+  m_PrefabInstance: {fileID: 5121588528585521837}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1731606979268573611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76735,6 +76800,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftDemonFist
       objectReference: {fileID: 0}
+    - target: {fileID: 8992605617412725086, guid: b3a6264ffdf100a4eb2d211a375474de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3a6264ffdf100a4eb2d211a375474de, type: 3}
 --- !u!1 &1748458994562371664
@@ -76768,12 +76838,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748458994562371664}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.07867718, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.227296, y: 0.04347414, z: 0.6260445, w: 0.7446575}
+  m_LocalPosition: {x: -0.0014120335, y: 0.00014156826, z: 0.00073907775}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 543450653126682949}
-  m_RootOrder: 0
+  m_Father: {fileID: 156811649}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2376958093945439630
 MeshFilter:
@@ -76862,6 +76932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RightDemonFist
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110316477919272933, guid: c59f2067ef196084daa162d70c31a490,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6883722184190608735, guid: c59f2067ef196084daa162d70c31a490,
         type: 3}
@@ -76980,6 +77055,12 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7263110435207028981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8992605617412725086, guid: b3a6264ffdf100a4eb2d211a375474de,
+    type: 3}
+  m_PrefabInstance: {fileID: 1731606979268573611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7456628711790767304
 Transform:
   m_ObjectHideFlags: 0

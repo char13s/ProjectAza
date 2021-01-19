@@ -26,7 +26,9 @@ public class Player : MonoBehaviour
     #region Obj refs
     [Header("Weapons")]
     [SerializeField] private GameObject katana;
-    [SerializeField] private GameObject fist;
+    [SerializeField] private GameObject scabbard;
+    [SerializeField] private GameObject fistL;
+    [SerializeField] private GameObject fistR;
     [SerializeField] private GameObject wand;
     [SerializeField] private GameObject azaSword;
     [SerializeField] private GameObject greatSword;
@@ -158,7 +160,7 @@ public class Player : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         ChargeJump.jump += Jumps;
         Jump.jumped += Jumped;
-        SummonAzaSword.summonWeapon += SummonWeapon;
+        SummonAzaSword.summonWeapon += SummonLightSword;
         // ThrowingPortal.sendSpot += TeleportHere;
         GameManager.spawnPlayer += TeleportHere;
         SceneDialogue.sealPlayerInput += SetInputSeal;
@@ -442,10 +444,19 @@ public class Player : MonoBehaviour
     private void GravityControl(bool val) {
         rbody.useGravity = val;
     }
-    private void SummonWeapon(bool val) {
+    private void SummonLightSword(bool val) {
         //Instantiate(swordSpawn, transform.position, Quaternion.identity);
         azaSword.SetActive(val);
     }
+    private void SummonKatana(bool val) {
+        katana.SetActive(val);
+        scabbard.SetActive(val);
+    }
+    private void SummonFist(bool val) {
+        fistL.SetActive(val);
+        fistR.SetActive(val);
+    }
+    
     private void SetInputSeal(bool val) {
         inputSeal = val;
     }

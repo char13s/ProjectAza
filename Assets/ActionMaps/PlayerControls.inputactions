@@ -100,6 +100,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Down",
+                    "type": "Button",
+                    "id": "ee96bc77-c74e-4d59-92ea-ff1144c50412",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Skill",
+                    "type": "Button",
+                    "id": "4ae424e9-5f93-4596-8d33-7fc87c4abf7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -287,6 +303,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6c786d3-d779-41c4-88d4-120c41222414",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1bb3e35c-401d-482c-b85a-2125c0f93a82",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "287d0fb2-1c32-448c-913b-399c823e6499",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -11,6 +11,7 @@ public class EnergyWave : MonoBehaviour
     // Start is called before the first frame update
     private void Start() {
         direction = Player.GetPlayer().transform.forward;
+        transform.rotation= Quaternion.LookRotation(direction, Vector3.up);
         //LayerMask.GetMask("Ground");
         Destroy(gameObject, 4f);
         StartCoroutine(Disappear());

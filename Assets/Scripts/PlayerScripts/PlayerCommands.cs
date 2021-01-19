@@ -64,6 +64,9 @@ public class PlayerCommands : MonoBehaviour {
     private void OnUp() {
         AddInput(Inputs.Up);
     }
+    private void OnDown() {
+        AddInput(Inputs.Down);
+    }
     private void OnJump() {
 
         if (sendInput != null) {
@@ -130,11 +133,10 @@ public class PlayerCommands : MonoBehaviour {
             Chain = 4;
 
         }
-        if (inputs.Contains(Inputs.X) && inputs.Contains(Inputs.Direction)) {
+        if (inputs.Contains(Inputs.Circle) && inputs.Contains(Inputs.Direction)) {
 
             Chain = 7;
         }
-
     }
     private void InputCombinations() {
         if (inputs.Contains(Inputs.Square) && inputs.Contains(Inputs.Up)) {
@@ -143,13 +145,14 @@ public class PlayerCommands : MonoBehaviour {
                 sendInput("Up + Square");
             }
             ResetChain();
-            Chain = 5;
+            Chain = 8;
         }
         if (inputs.Contains(Inputs.Square) && inputs.Contains(Inputs.Down)) {
             Debug.Log("Down Attack!");
             if (sendInput != null) {
                 sendInput("Down + Square");
             }
+            Chain = 5;
             ResetChain();
             //Insert Chain Here.
         }

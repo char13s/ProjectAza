@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
     #region Animation states
     private bool moving, attacking, jumping, readyJump, grounded, wallInReach, wallStuck;
-    private int cmdInput,skillId;
-    private int lStickX,lStickY;
+    private int cmdInput, skillId;
+    private int lStickX, lStickY;
     private bool teleport;
     private bool shoot;
     private bool testButton;
@@ -20,12 +21,17 @@ public class Player : MonoBehaviour {
     private PlayerCommands comm;
     private PlayerLockon playerTarget;
     private PlayerInput map;
-    
+
     #endregion
     #region Obj refs
+    [Header("Weapons")]
+    [SerializeField] private GameObject katana;
+    [SerializeField] private GameObject fist;
+    [SerializeField] private GameObject wand;
+    [SerializeField] private GameObject azaSword;
+    [SerializeField] private GameObject greatSword;
     [Header("Objects")]
     [SerializeField] private Camera cam;
-    [SerializeField] private GameObject AzaSword;
     [SerializeField] private GameObject defaultLockOnPoint;
     [SerializeField] private GameObject throwingPortal;
     [Header("Body Refs")]
@@ -68,11 +74,12 @@ public class Player : MonoBehaviour {
     #endregion
     private Vector2 displacement;
     private Vector3 direction;
-    private bool skillButton;
-    private bool teleportButton;
+    private bool skillButton,teleportButton;
+    private int weapon;
     private bool lockedOn;
-    private bool cantMove;
-    private bool cancelCamMovement;
+    private bool cantMove,cancelCamMovement;
+    
+
     private static Player instance;
     #region Input seals
     private bool inputSeal;
@@ -104,7 +111,7 @@ public class Player : MonoBehaviour {
     public int SkillId { get => skillId; set { skillId = value; anim.SetInteger("SkillId", skillId); } }
 
     public bool TeleportButton { get => teleportButton; set { teleportButton = value; anim.SetBool("TeleportButton", teleportButton); } }
-     
+
     public GameObject DefaultLockOnPoint { get => defaultLockOnPoint; set => defaultLockOnPoint = value; }
     public bool CancelCamMovement { get => cancelCamMovement; set => cancelCamMovement = value; }
     public bool LockedOn { get => lockedOn; set { lockedOn = value; CancelCamMovement = value; if (lockOn != null) { lockOn(value); } } }
@@ -121,9 +128,10 @@ public class Player : MonoBehaviour {
     public GameObject Body { get => body; set => body = value; }
     public GameObject Hair { get => hair; set => hair = value; }
     public bool CantMove { get => cantMove; set => cantMove = value; }
-    public bool LightDash { get => lightDash; set { lightDash = value; anim.SetBool("LightDash",lightDash); } }
+    public bool LightDash { get => lightDash; set { lightDash = value; anim.SetBool("LightDash", lightDash); } }
 
     public Vector3 Direction { get => direction; set => direction = value; }
+    public int Weapon { get => weapon; set => weapon = value; }
     #endregion
     public static Player GetPlayer() => instance;
 
@@ -168,8 +176,6 @@ public class Player : MonoBehaviour {
         if (!inputSeal) {
             GetInput();
         }
-        
-        //Pause();
     }
     private void FixedUpdate() {
         Move();
@@ -214,8 +220,8 @@ public class Player : MonoBehaviour {
     private void Move() {
         //Displacement = cam.transform.TransformDirection(displacement);
         if (displacement.magnitude != Vector2.zero.magnitude) {
-            if (!cantMove) { 
-            Moving = true;
+            if (!cantMove) {
+                Moving = true;
             }
             direction.y = 0;
             Vector3 rot = Vector3.Normalize(direction);
@@ -234,9 +240,9 @@ public class Player : MonoBehaviour {
     #endregion
     #region Action Mappings
     private void OnMovement(InputValue value) {
-        Displacement=value.Get<Vector2>();
-        Direction= cam.transform.TransformDirection(new Vector3(displacement.x, 0, displacement.y));
-        
+        Displacement = value.Get<Vector2>();
+        Direction = cam.transform.TransformDirection(new Vector3(displacement.x, 0, displacement.y));
+
         //Debug.Log("Love");
     }
     private void OnAttack(InputValue value) {
@@ -259,7 +265,6 @@ public class Player : MonoBehaviour {
         if (pause != null) {
             pause();
         }
-
     }
     private void OnLightDash(InputValue value) {
         if (value.isPressed) {
@@ -270,7 +275,7 @@ public class Player : MonoBehaviour {
         }
     }
     private void OnLockOn(InputValue value) {//R1
-        
+
         if (value.isPressed) {
             LockedOn = true;
             cancelCamMovement = true;
@@ -278,7 +283,16 @@ public class Player : MonoBehaviour {
         else {
             LockedOn = false;
             cancelCamMovement = false;
-        }   
+        }
+    }
+    private void OnSkill(InputValue value) {
+        if (value.isPressed) {
+            Debug.Log("Skill");
+            if (stats.MpLeft >= square.MpRequired) {
+                SkillId = square.ID;
+                stats.MpLeft -= square.MpRequired;
+            }
+        }
     }
     #endregion
     #region Inputs
@@ -311,45 +325,49 @@ public class Player : MonoBehaviour {
         }
 
     }
-    private void Skills() {//R2
-        if (Input.GetButtonDown("Fire1") && stats.MpLeft >= square.MpRequired) {
-            SkillId = square.ID;
-            stats.MpLeft -= square.MpRequired;
-        }
-        if (Input.GetButtonDown("Fire3") && stats.MpLeft >= triangle.MpRequired) {
+    private void OnSkillSquare() {
+        
+    }
+    private void OnSkillTriangle() {
+        if (stats.MpLeft >= triangle.MpRequired) {
             SkillId = triangle.ID;
             stats.MpLeft -= triangle.MpRequired;
             Debug.Log("Skill for triangle used");
         }
-        if (Input.GetButtonDown("Fire2") && stats.MpLeft >= circle.MpRequired) {
-            SkillId = circle.ID;
-            stats.MpLeft -= circle.MpRequired;
-        }
-        if (Input.GetButtonDown("Jump") && stats.MpLeft >= x.MpRequired) {
+    }
+    private void OnSkillX() {
+        if (stats.MpLeft >= x.MpRequired) {
             SkillId = x.ID;
             stats.MpLeft -= x.MpRequired;
         }
     }
-    private void Interact() {////circle
-        if (Input.GetButtonDown("Fire2")) {
-            interactionBox.SetActive(true);
-        }
-        if (Input.GetButtonUp("Fire2")) {
-            interactionBox.SetActive(false);
+    private void OnSkillCircle() {
+        if (stats.MpLeft >= circle.MpRequired) {
+            SkillId = circle.ID;
+            stats.MpLeft -= circle.MpRequired;
         }
     }
-    private void Phase() {//L1
-        if (Input.GetButtonDown("L1") && stats.MpLeft > 0) {
-            PhaseUp();
+    
+        private void Interact() {////circle
+            if (Input.GetButtonDown("Fire2")) {
+                interactionBox.SetActive(true);
+            }
+            if (Input.GetButtonUp("Fire2")) {
+                interactionBox.SetActive(false);
+            }
         }
-        if (Input.GetButton("L1") && stats.MpLeft > 0) {
-            Debug.Log("Phase is up");
-        }
-        if (Input.GetButtonUp("L1")) {
-            PhaseOff();
-            //shoot out power down particles
-        }
-    }*/
+        private void Phase() {//L1
+            if (Input.GetButtonDown("L1") && stats.MpLeft > 0) {
+                PhaseUp();
+            }
+            if (Input.GetButton("L1") && stats.MpLeft > 0) {
+                Debug.Log("Phase is up");
+            }
+            if (Input.GetButtonUp("L1")) {
+                PhaseOff();
+                //shoot out power down particles
+            }
+        }*/
     private void PhaseUp() {
         mpDrain = StartCoroutine(MpDrain(1));
         current.material = transparent;
@@ -370,14 +388,14 @@ public class Player : MonoBehaviour {
     #endregion
     #region Event Methods
     private void SwitchControls(int val) {
-       switch (val) {
-           case 0:
-               map.SwitchCurrentActionMap("OpenWorldControls");
-               break;
-           case 1:
-               map.SwitchCurrentActionMap("CombatControls");
-               break;
-       }
+        switch (val) {
+            case 0:
+                map.SwitchCurrentActionMap("OpenWorldControls");
+                break;
+            case 1:
+                map.SwitchCurrentActionMap("CombatControls");
+                break;
+        }
         //print(map.currentActionMap);
     }
     private void AttackState(bool val) {
@@ -398,7 +416,7 @@ public class Player : MonoBehaviour {
     }
     private void Jumps() {
         if (Input.GetButtonDown("Jump") && !jumping && grounded) {
-            Jumping = true; 
+            Jumping = true;
             wallChecker.SetActive(true);
             Debug.Log("fuck yo jump");
         }
@@ -426,7 +444,7 @@ public class Player : MonoBehaviour {
     }
     private void SummonWeapon(bool val) {
         //Instantiate(swordSpawn, transform.position, Quaternion.identity);
-        AzaSword.SetActive(val);
+        azaSword.SetActive(val);
     }
     private void SetInputSeal(bool val) {
         inputSeal = val;
@@ -490,15 +508,15 @@ public class Player : MonoBehaviour {
     }
 
     #endregion
-    
-    
+
+
     private void UnGround() {
         GroundChecker.grounded -= GroundCheck;
     }
     private void UnWall() {
         WallChecker.stickToWall -= WallCheck;
     }
-    
+
     #region Cooldowns
     private IEnumerator WaitToTeleport() {
         YieldInstruction wait = new WaitForSeconds(4);

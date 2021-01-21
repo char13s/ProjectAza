@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: c402d4a56b38a7543aaa9cd91aba9c3c
+guid: b698bc4d81eb7de46b84bd5d37a2c6ac
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
-      74: -3100369314251171874
-    second: Idle
+      74: 1827226128182048838
+    second: FistIdle
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
-      takeName: Idle
+      name: FistIdle
+      takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 15
+      firstFrame: 10650
+      lastFrame: 10720
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -62,7 +62,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 10300
     isReadable: 0
   meshes:
     lODScreenPercentages: []

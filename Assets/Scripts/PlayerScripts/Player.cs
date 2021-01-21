@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private bool shoot;
     private bool testButton;
     private bool lightDash;
+    private bool attack;
     #endregion
     #region Script refs
     private Animator anim;
@@ -133,7 +134,10 @@ public class Player : MonoBehaviour
     public bool LightDash { get => lightDash; set { lightDash = value; anim.SetBool("LightDash", lightDash); } }
 
     public Vector3 Direction { get => direction; set => direction = value; }
-    public int Weapon { get => weapon; set => weapon = value; }
+    public int Weapon { get => weapon; set { weapon = value; anim.SetInteger("Weapon",weapon); } }
+
+    public PlayerCommands Comm { get => comm; set => comm = value; }
+    public bool Attack { get => attack; set { attack = value; anim.SetTrigger("Attack"); } }
     #endregion
     public static Player GetPlayer() => instance;
 
@@ -148,7 +152,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         Rbody = GetComponent<Rigidbody>();
         current = meshRef.GetComponent<SkinnedMeshRenderer>();
-        comm = GetComponent<PlayerCommands>();
+        Comm = GetComponent<PlayerCommands>();
         playerTarget = GetComponent<PlayerLockon>();
     }
     void Start() {
@@ -161,6 +165,8 @@ public class Player : MonoBehaviour
         ChargeJump.jump += Jumps;
         Jump.jumped += Jumped;
         SummonAzaSword.summonWeapon += SummonLightSword;
+        SummonFist.summonWeapon += SummonFireFist;
+        SummonKatana.summonWeapon += SummonElectroKatana;
         // ThrowingPortal.sendSpot += TeleportHere;
         GameManager.spawnPlayer += TeleportHere;
         SceneDialogue.sealPlayerInput += SetInputSeal;
@@ -249,13 +255,13 @@ public class Player : MonoBehaviour
     }
     private void OnAttack(InputValue value) {
         Debug.Log("Attack");
-        CmdInput = 1;
+        Attack = true;
     }
     private void OnEnergyShot() {
         Debug.Log("Shoot");
     }
     private void OnJump() {
-        comm.Chain = 1;
+        Comm.Chain = 1;
     }
     private void OnStyle() {
         Debug.Log("Style");
@@ -294,6 +300,12 @@ public class Player : MonoBehaviour
                 SkillId = square.ID;
                 stats.MpLeft -= square.MpRequired;
             }
+        }
+    }
+    private void OnWeaponSwitch(InputValue value) {
+        if (value.isPressed) {
+            Weapon = 2;
+            Debug.Log("Bruh");
         }
     }
     #endregion
@@ -439,7 +451,7 @@ public class Player : MonoBehaviour
         transform.position = spot.position + new Vector3(0, 1, 0);
     }
     private void ChainControl(int val) {
-        comm.Chain = val;
+        Comm.Chain = val;
     }
     private void GravityControl(bool val) {
         rbody.useGravity = val;
@@ -448,11 +460,11 @@ public class Player : MonoBehaviour
         //Instantiate(swordSpawn, transform.position, Quaternion.identity);
         azaSword.SetActive(val);
     }
-    private void SummonKatana(bool val) {
+    private void SummonElectroKatana(bool val) {
         katana.SetActive(val);
         scabbard.SetActive(val);
     }
-    private void SummonFist(bool val) {
+    private void SummonFireFist(bool val) {
         fistL.SetActive(val);
         fistR.SetActive(val);
     }

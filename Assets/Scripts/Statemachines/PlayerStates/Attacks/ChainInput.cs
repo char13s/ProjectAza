@@ -5,7 +5,12 @@ using UnityEngine.Events;
 public class ChainInput : StateMachineBehaviour
 {
     public static UnityAction<int> sendChain;
+    private Player player;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
+        player = Player.GetPlayer();
+        player.Comm.Chain = 0;
+    }
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         if (sendChain != null) {
             sendChain(0);
         }

@@ -77,11 +77,12 @@ public class Player : MonoBehaviour
     #endregion
     private Vector2 displacement;
     private Vector3 direction;
+    private Vector3 moveDirection;
     private bool skillButton,teleportButton;
     private int weapon;
     private bool lockedOn;
     private bool cantMove,cancelCamMovement;
-    
+    private float turnSmoothVelocity;
 
     private static Player instance;
     #region Input seals
@@ -138,6 +139,8 @@ public class Player : MonoBehaviour
 
     public PlayerCommands Comm { get => comm; set => comm = value; }
     public bool Attack { get => attack; set { attack = value; anim.SetTrigger("Attack"); } }
+
+    public Vector3 MoveDirection { get => moveDirection; set => moveDirection = value; }
     #endregion
     public static Player GetPlayer() => instance;
 
@@ -180,12 +183,8 @@ public class Player : MonoBehaviour
         //SlamState.gravity += GravityControl;
         //WallCheckState.wallCheck += WallCheck;
     }
-    void Update() {
-        if (!inputSeal) {
-            GetInput();
-        }
-    }
-    private void FixedUpdate() {
+
+    private void Update() {
         Move();
     }
     private IEnumerator SwitchMaterial() {
@@ -196,63 +195,30 @@ public class Player : MonoBehaviour
             GetComponentInChildren<SkinnedMeshRenderer>().material.Lerp(normal, shiny, lerp);
         }
     }
-    private void GetInput() {
-        //if (Input.GetButtonDown("TestButton")) {
-        //    TestButton = true;
-        //}
-        //if (cmdInput == 0 && !teleport) {
-        //    MovementControls();
-        //}
-        ////WallJumping();
-        //if (skillButton) {
-        //    Skills();
-        //
-        //}
-        //else {
-        //    if (!teleportButton) {
-        //        JumpCharge();
-        //    }
-        //    if (!lockedOn) {
-        //        Attack();
-        //        ShootLight();
-        //        Teleportation();
-        //        Interact();
-        //    }
-        //    Phase();
-        //}
-        //LockOn();
-        //SkillButtonControl();
-        //Jumps();
-    }
     #region Movement 
     private void Move() {
-        //Displacement = cam.transform.TransformDirection(displacement);
-        if (displacement.magnitude != Vector2.zero.magnitude) {
+        Direction = cam.transform.TransformDirection(new Vector3(displacement.x, 0, displacement.y).normalized);
+        if (displacement.magnitude >= 0.1f) {
             if (!cantMove) {
                 Moving = true;
             }
             direction.y = 0;
-            Vector3 rot = Vector3.Normalize(direction);
+            Vector3 rot = Vector3.Normalize(Direction);
+            rot.y = 0;
+            MoveDirection = Quaternion.Euler(rot) * Camera.main.transform.forward;
             transform.rotation = Quaternion.LookRotation(rot);
         }
         else {
             Moving = false;
         }
     }
-    private void LstickControlX(float x) {
-        LStickX = (int)x;
-    }
-    private void LstickControlY(float y) {
-        LStickY = (int)y;
+    private void OnMovement(InputValue value) {
+        Displacement = value.Get<Vector2>();
+
     }
     #endregion
     #region Action Mappings
-    private void OnMovement(InputValue value) {
-        Displacement = value.Get<Vector2>();
-        Direction = cam.transform.TransformDirection(new Vector3(displacement.x, 0, displacement.y));
-
-        //Debug.Log("Love");
-    }
+    
     private void OnAttack(InputValue value) {
         Debug.Log("Attack");
         Attack = true;

@@ -108,7 +108,7 @@ public class PlayerAnimationEvents : MonoBehaviour {
         }
     }
     private void Transform() {
-        player.Hair.SetActive(false);
+        //player.Hair.SetActive(false);
     }
     #endregion
     #region Coroutines

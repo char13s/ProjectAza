@@ -131,7 +131,6 @@ public class PlayerCommands : MonoBehaviour {
         }
         if (inputs.Contains(Inputs.Circle)) {
             Chain = 4;
-
         }
         if (inputs.Contains(Inputs.Circle) && inputs.Contains(Inputs.Direction)) {
 

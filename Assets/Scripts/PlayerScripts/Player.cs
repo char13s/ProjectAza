@@ -25,14 +25,7 @@ public class Player : MonoBehaviour
 
     #endregion
     #region Obj refs
-    [Header("Weapons")]
-    [SerializeField] private GameObject katana;
-    [SerializeField] private GameObject scabbard;
-    [SerializeField] private GameObject fistL;
-    [SerializeField] private GameObject fistR;
-    [SerializeField] private GameObject wand;
-    [SerializeField] private GameObject azaSword;
-    [SerializeField] private GameObject greatSword;
+
     [Header("Objects")]
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject defaultLockOnPoint;
@@ -71,6 +64,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Material normal;
     [SerializeField] private Material transparent;
     [SerializeField] private Material shiny;
+    [Space]
+    [Header("Hair Materials")]
+    [SerializeField] private Material normalHair;
+    [SerializeField] private Material electricHair;
+    [SerializeField] private Material fireHair;
+    [SerializeField] private Material iceHair;
+    [SerializeField] private Material darkHair;
+    [SerializeField] private Material lightHair;
     #endregion
     #region Coroutines
     private Coroutine mpDrain;
@@ -102,6 +103,7 @@ public class Player : MonoBehaviour
     public static event UnityAction pause;
     public static event UnityAction<bool> skills;
     public static event UnityAction<bool> lockOn;
+    public static event UnityAction<int> transformation;
     #endregion
     #region Getters and Setters
     public bool Moving { get => moving; set { moving = value; anim.SetBool("Moving", moving); } }
@@ -159,6 +161,7 @@ public class Player : MonoBehaviour
         playerTarget = GetComponent<PlayerLockon>();
     }
     void Start() {
+        
         stats.SetStatsDefault();
         LegControlState.legLayer += LegLayerControl;
         GroundChecker.grounded += GroundCheck;
@@ -167,9 +170,7 @@ public class Player : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         ChargeJump.jump += Jumps;
         Jump.jumped += Jumped;
-        SummonAzaSword.summonWeapon += SummonLightSword;
-        SummonFist.summonWeapon += SummonFireFist;
-        SummonKatana.summonWeapon += SummonElectroKatana;
+        
         // ThrowingPortal.sendSpot += TeleportHere;
         GameManager.spawnPlayer += TeleportHere;
         SceneDialogue.sealPlayerInput += SetInputSeal;
@@ -240,6 +241,9 @@ public class Player : MonoBehaviour
             pause();
         }
     }
+    private void OnTransform() {
+        anim.SetTrigger("Transform");
+    }
     private void OnLightDash(InputValue value) {
         if (value.isPressed) {
             LightDash = true;
@@ -272,6 +276,7 @@ public class Player : MonoBehaviour
         if (value.isPressed) {
             Weapon = 2;
             Debug.Log("Bruh");
+            Debug.Log(Weapon);
         }
     }
     #endregion
@@ -366,7 +371,16 @@ public class Player : MonoBehaviour
         dodgeBox.SetActive(false);
     }
     #endregion
+    #region Form Logic
+    private void Deform() {
+
+    }
+    private void FormControl() {
+
+    }
+    #endregion
     #region Event Methods
+
     private void SwitchControls(int val) {
         switch (val) {
             case 0:
@@ -422,18 +436,6 @@ public class Player : MonoBehaviour
     private void GravityControl(bool val) {
         rbody.useGravity = val;
     }
-    private void SummonLightSword(bool val) {
-        //Instantiate(swordSpawn, transform.position, Quaternion.identity);
-        azaSword.SetActive(val);
-    }
-    private void SummonElectroKatana(bool val) {
-        katana.SetActive(val);
-        scabbard.SetActive(val);
-    }
-    private void SummonFireFist(bool val) {
-        fistL.SetActive(val);
-        fistR.SetActive(val);
-    }
     
     private void SetInputSeal(bool val) {
         inputSeal = val;
@@ -443,7 +445,7 @@ public class Player : MonoBehaviour
         spawnIn.SetActive(val);
         if (val) {
             UIAura.SetActive(false);
-            rbody.velocity = new Vector3(0, 0, 0);
+            //rbody.velocity = new Vector3(0, 0, 0);
             Instantiate(teleportSparks, transform.position, teleportSparks.transform.rotation);
         }
         else {

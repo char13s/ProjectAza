@@ -27,7 +27,7 @@ public class GroundChecker : MonoBehaviour
     //    }
     //}
     private void FixedUpdate() {
-        if (!Physics.Raycast(transform.position, -Vector2.up, distanceGround + 0.18f)) {
+        if (!Physics.Raycast(transform.position, -Vector2.up, distanceGround + 0.1f)) {
             player.Grounded = false;
 
         }

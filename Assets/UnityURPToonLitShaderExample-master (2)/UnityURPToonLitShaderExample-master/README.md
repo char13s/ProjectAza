@@ -1,7 +1,23 @@
 # Unity URP Simplified Toon Lit Shader Example (for you to learn writing custom lit shader in URP)
 
 This repository is NOT the full version shader, the full version shader is still WIP and not yet released.
-This repository is only for tutorial purpose, which only contains a very simple and short shader example.
+
+but we are now developing a mobile lite version of it, NiloToonURP(Lite), and uploaded a test APK here:
+https://drive.google.com/file/d/1bPm2qVqzGELJUcVFbZRIsWyF2FVfvCDl/view  
+
+NiloToonURP(Lite)'s runtime video: https://youtu.be/zFEL1eBq_v0
+
+NiloToonURP(Lite)'s preview image:
+![screenshot](https://i.imgur.com/nFPy1KS.png)
+![screenshot](https://i.imgur.com/sBpX10Y.png)
+![screenshot](https://i.imgur.com/EyiMbKP.png)
+![screenshot](https://i.imgur.com/McKrRYW.png)
+![screenshot](https://i.imgur.com/2fOhV13.png)
+
+This repository will be upgraded to NiloToonURP(Lite) once it is working correctly on 2020.3LTS. 
+If you want to keep the current tutorial shader, please fork it or download a copy now.
+----------------------------------------------------------------
+Currently this repository is still a very simple and short shader example, only for tutorial purpose.
 
 Screenshots from the Full version shader (not yet released):
 -------------------
@@ -24,19 +40,41 @@ AFTER:
 see it in motion-> https://youtu.be/D9ocVzGJfI8
 
 ---
-real 3D background TEST  
+3D enviroment model TEST  
 ![screenshot](https://i.imgur.com/AOAxQJ8.png)
 ![screenshot](https://i.imgur.com/WlOQtCf.png)
 see it in motion-> https://youtu.be/GcW0pNo-zus
+---
+湊 あくあ（みなと あくあ，Minato Aqua） model TEST
+![screenshot](https://i.imgur.com/iDDFjoO.png)
+![screenshot](https://i.imgur.com/4aFqOND.png)
+![screenshot](https://i.imgur.com/7KjUwrI.png)
+see it in motion-> https://youtu.be/7zICgzdxuGg
+---
+see it in motion-> https://youtu.be/X3XoYMTleJ0
+---
+Auto Phong tessellation  
 
-different Background image TEST
-![screenshot](https://i.imgur.com/hev9PtZ.png)
-![screenshot](https://i.imgur.com/lRdXn3I.png)
-![screenshot](https://i.imgur.com/cx8tZox.png)
-![screenshot](https://i.imgur.com/GYPoNWT.png)
-![screenshot](https://i.imgur.com/fZw0Wzt.png)
-  
+(shader off, no tessellation)
+![screenshot](https://i.imgur.com/yAUdcmK.png)
+(shader on, no tessellation)
+![screenshot](https://i.imgur.com/pncbBUq.png)
+(shader on, enable tessellation! Phong tessellation can make your model smooth without changing your .fbx)
+![screenshot](https://i.imgur.com/nGCmiEj.png)
+see it in motion-> https://youtu.be/D-MxyBa0nJE
+---
 
+Kawaii model TEST (@ganbaru_sisters)
+![screenshot](https://i.imgur.com/7CAw71u.png)
+![screenshot](https://i.imgur.com/42CUENh.png)
+
+Upgraded to Unity2020.2 (URP 10.2.1)
+SHADER ON
+![screenshot](https://i.imgur.com/6chTRCl.png)
+SHADER OFF
+![screenshot](https://i.imgur.com/Vu2M5zB.png)
+HD
+![screenshot](https://i.imgur.com/KXYYfaN.png)
 
 shader ON
 ![screenshot](https://i.imgur.com/A2NA1Po.png)
@@ -46,13 +84,6 @@ shader ON
 ![screenshot](https://i.imgur.com/VLZKP5h.png)
 shader OFF
 ![screenshot](https://i.imgur.com/lTm0zvH.png)
-shader ON
-![screenshot](https://i.imgur.com/m1gnYEr.png)
-![screenshot](https://i.imgur.com/C5lFumg.png)
-![screenshot](https://i.imgur.com/kz0uuqT.png)
-shader OFF
-![screenshot](https://i.imgur.com/P79RmTS.png)
-
 
 ---
 
@@ -181,6 +212,8 @@ AFTER
 
 
 
+
+
 What is included in this "simplified version" toon lit shader repository?
 -------------------
 This repository contains a very simple toon lit shader example, to help people writing their first custom toon lit shader in URP.
@@ -207,23 +240,37 @@ How to try this simplified toon lit example shader in my URP project?
 7. Most important: open these shader files, spend some time reading it, you will understand how to write custom lit shader in URP very quickly
 8. Most important: open "SimpleURPToonLitOutlineExample_LightingEquation.hlsl", edit it, experiment with your own toon lighting equation ideas, which is the key part of toon lit shader!
 
+I see the shader is working now, but the outline is broken?
+-------------------
+For this tutorial shader, you can let Unity to calculate smooth normal for you, which can produce better outline, 
+but doing this will make lighting slightly incorrect.
+
+1. click you character's .fbx
+2. In the model tab
+3. edit "Normals" to Calculate
+4. edit "Smoothing Angle" to 180  
+  
+![screenshot](https://i.imgur.com/yxDkeGP.png)  
+before calculate smooth normal (printscreen of tutorial shader, not full version)  
+![screenshot](https://i.imgur.com/uTJ3gxB.png)  
+after calculate smooth normal  (printscreen of tutorial shader, not full version)
+![screenshot](https://i.imgur.com/9Jnnigf.png)
+
+*The full version shader project will contains a few editor C# script, which can help the shader to produce correct lighting and perfect outline together.
+
 What is NOT included in this simplified example shader?
 -------------------
 For simplicity reason, I removed most of the features from the Full version shader (deleted 90% of the original shader), else this example shader will be way too complex for reading & learning. The removed features are:
-- face sphere proxy normal & direction proxy normal (fixing face ugly normals, very important)
-- smooth outline normal auto baking (fixing ugly outlines, very important)
-- constant outline fix for fov and distance to camera (outline looks correct in any situation, very important)
-- tricks to remove unwanted hair shadow casted on face (to keep face looks clean, very important)
-- tricks to render eye over hair
+- face anime lighting (auto fix face ugly lighting due to vertex normal without modify fbx, very important)
+- smooth outline normal auto baking (fix ugly outlines without modify fbx, very important)
+- auto 2D hair shadow on face (very important, it is very difficult to produce good looking shadow result using shadowmap)
+- sharp const width rim light (Blue Protocol / Genshin Impact)
+- tricks to render eye/eyebrow over hair
 - hair "angel ring" reflection
-- sharp rim light
 - PBR specular lighting (GGX)
 - HSV control shadow & outline color
 - 2D mouth renderer
-- stencil local hair shadow on face
-- physics and wind
-
-- almost all the extra texture input options like AO, specular, normal map...
+- almost all the extra texture input options like roughness, specular, normal map...
 - LOTS of sliders to control lighting, final color & outline
 - ***just too much for me to write all removed feature here, the full version shader is a totally different level product
 
@@ -241,22 +288,28 @@ Also, here are some websites that can download models(If the creator allows it)
 - https://3d.nicovideo.jp/
 - https://hub.vroid.com/
 
-if you downloaded a .pmx file, use this to convert it to .fbx & prefab directly inside unity
-
-MMD4Mecanim (Beta)
+if you downloaded a .pmx file, use MMD4Mecanim to convert it to .fbx & prefab directly inside unity
 http://stereoarts.jp/
 
-if you downloaded a .vrm file, use this to convert it to .fbx & prefab directly inside unity
-
-UniVRM
+if you downloaded a .vrm file, use UniVRM to convert it to .fbx & prefab directly inside unity
 https://github.com/vrm-c/UniVRM
 
 Editor environment requirement
 -----------------------
-- URP 7.2.1 or above
-- Unity 2019.3 or above
+- URP 10.2.1
+- Unity 2020.2
 
 ---------------------------
+Apply our shader to another model (2020-2 early version screen shots)
+https://youtu.be/uVI_QOioER4
+
+![screenshot](https://i.imgur.com/LBTNZCH.png)
+![screenshot](https://i.imgur.com/X6hAD7W.png)
+![screenshot](https://i.imgur.com/WIGyMVx.png)
+![screenshot](https://i.imgur.com/zou7PxL.png)
+![screenshot](https://i.imgur.com/WpkJyFB.png)
+![screenshot](https://i.imgur.com/3iyu3eG.png)
+
 More old screenshots from the Full version shader(not yet released):
 ---
 ![screenshot](https://i.imgur.com/RDqMYVP.png)
@@ -269,19 +322,6 @@ More old screenshots from the Full version shader(not yet released):
 ![screenshot](https://i.imgur.com/sxeUg1K.png)
 https://youtu.be/tNnqIP4NdV8
 ---
-Apply our shader to another model (2020-2 early version screen shots)
-https://youtu.be/uVI_QOioER4
-
-![screenshot](https://i.imgur.com/LBTNZCH.png)
-![screenshot](https://i.imgur.com/X6hAD7W.png)
-![screenshot](https://i.imgur.com/WIGyMVx.png)
-![screenshot](https://i.imgur.com/zou7PxL.png)
-
-
-![screenshot](https://i.imgur.com/WpkJyFB.png)
-![screenshot](https://i.imgur.com/3iyu3eG.png)
-
-
 
 ![screenshot](https://i.imgur.com/DDr32Mu.png)
 https://youtu.be/IP293mAmBCk
@@ -293,6 +333,13 @@ https://youtu.be/IP293mAmBCk
 ![screenshot](https://i.imgur.com/lt45arW.png)
 ![screenshot](https://i.imgur.com/RcSz8H1.png)
 
+different Background image TEST
+![screenshot](https://i.imgur.com/hev9PtZ.png)
+![screenshot](https://i.imgur.com/lRdXn3I.png)
+![screenshot](https://i.imgur.com/cx8tZox.png)
+![screenshot](https://i.imgur.com/GYPoNWT.png)
+![screenshot](https://i.imgur.com/fZw0Wzt.png)
+
 credits
 ------------------------
 model's creator in shader demo image/video: 
@@ -302,7 +349,12 @@ model's creator in shader demo image/video:
 - Kuro Game - Punishing: Grey Raven
 - Azur Lane: Crosswave
 - Sour式鏡音リン
-- Unity-Chan in asset store
+- Unity-Chan
 - https://www.bilibili.com/blackboard/activity-mrfzrlha.html
+- 【オリジナル3Dモデル】Eve -イヴ- by ganbaru_sisters https://booth.pm/en/items/2557029 
+- https://www.mmd.hololive.tv/
+- Japanese Street by Art Equilibrium https://assetstore.unity.com/packages/3d/environments/urban/japanese-street-170162
+- miHoYo - Genshin Impact
+- 【セール中】【オリジナル3Dモデル】ドラゴニュート・シェンナ by rokota https://rokota.booth.pm/items/2661189
 
 

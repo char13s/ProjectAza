@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &366425751
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -368,6 +368,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
+  m_Mesh: {fileID: 0}
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -429,7 +430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366425750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.288258, y: 5.6, z: 38.029163}
+  m_LocalPosition: {x: 8.288258, y: -4.7, z: 38.029163}
   m_LocalScale: {x: 1, y: 1, z: 0.88755}
   m_Children: []
   m_Father: {fileID: 0}
@@ -454,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &462204911
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -784,6 +785,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
+  m_Mesh: {fileID: 0}
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -845,7 +847,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462204910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7307034, y: 4.524868, z: 42.8}
+  m_LocalPosition: {x: 4.7307034, y: -5.775131, z: 42.8}
   m_LocalScale: {x: 1, y: 1, z: 0.88755}
   m_Children: []
   m_Father: {fileID: 0}
@@ -857,7 +859,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh218292
+  m_Name: pb_Mesh41258
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1021,7 +1023,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh218304
+  m_Name: pb_Mesh41270
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1198,7 +1200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1048194712
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1664,6 +1666,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
+  m_Mesh: {fileID: 0}
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1725,7 +1728,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048194711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.62, y: 4.7, z: 71.96}
+  m_LocalPosition: {x: 0.62, y: -5.5999994, z: 71.96}
   m_LocalScale: {x: 1, y: 1, z: 0.88755}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1737,7 +1740,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh218320
+  m_Name: pb_Mesh41286
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1913,7 +1916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1395424699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1984,8 +1987,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395424698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.81, y: 4.15, z: 16.72}
-  m_LocalScale: {x: 26.343, y: 1, z: 40.004}
+  m_LocalPosition: {x: 11.81, y: -6.149999, z: 16.72}
+  m_LocalScale: {x: 215.1291, y: 1, z: 274.20007}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3

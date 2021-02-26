@@ -179,8 +179,9 @@ public class Player : MonoBehaviour
         AirCombos.gravity += GravityControl;
         PlayerLockon.enemyDetected += AttackState;
         PlayerLockon.switchMaps += SwitchControls;
-        LightDashing.sparkle += LightUp;
-        LightDashing.vanish += BodyControl;
+        LightDashing.sparkle += LightUp; 
+        //LightDashing.vanish += BodyControl;
+        LightDashing.sparkle +=PhaseUp;
         //SlamState.gravity += GravityControl;
         //WallCheckState.wallCheck += WallCheck;
     }
@@ -222,7 +223,8 @@ public class Player : MonoBehaviour
     
     private void OnAttack(InputValue value) {
         Debug.Log("Attack");
-        Attack = true;
+        if (value.isPressed) { 
+        anim.SetTrigger("Attack");}
     }
     private void OnEnergyShot() {
         Debug.Log("Shoot");
@@ -240,6 +242,7 @@ public class Player : MonoBehaviour
         if (pause != null) {
             pause();
         }
+        print("What the hell");
     }
     private void OnTransform() {
         anim.SetTrigger("Transform");
@@ -249,8 +252,12 @@ public class Player : MonoBehaviour
             LightDash = true;
         }
         else {
-            LightDash = false;
+            
         }
+        
+    }
+    private void OnLightDashRelease() {
+        LightDash = false;
     }
     private void OnLockOn(InputValue value) {//R1
 
@@ -353,22 +360,22 @@ public class Player : MonoBehaviour
                 //shoot out power down particles
             }
         }*/
-    private void PhaseUp() {
-        mpDrain = StartCoroutine(MpDrain(1));
-        current.material = transparent;
-        UIAura.SetActive(true);
-        hurtBox.SetActive(false);
-        dodgeBox.SetActive(true);
-        auraExplode.SetActive(true);
-        Instantiate(leftDash, transform.position, Quaternion.identity);
-        Instantiate(rightDash, transform.position, Quaternion.identity);
-    }
-    private void PhaseOff() {
-        StopCoroutine(mpDrain);
-        current.material = normal;
-        UIAura.SetActive(false);
-        hurtBox.SetActive(true);
-        dodgeBox.SetActive(false);
+    private void PhaseUp(bool val) {
+        if (val) {
+            mpDrain = StartCoroutine(MpDrain(1));
+            current.material = transparent;
+        }
+        else {
+            StopCoroutine(mpDrain);
+            current.material = normal;
+
+        }
+        //UIAura.SetActive(true);
+        //hurtBox.SetActive(false);
+        //dodgeBox.SetActive(true);
+        //auraExplode.SetActive(true);
+        //Instantiate(leftDash, transform.position, Quaternion.identity);
+        //Instantiate(rightDash, transform.position, Quaternion.identity);
     }
     #endregion
     #region Form Logic
@@ -462,7 +469,9 @@ public class Player : MonoBehaviour
     private void Jumped(float val) {
         UnGround();
         Grounded = false;
-        Rbody.AddForce(new Vector3(0, val, 0), ForceMode.Impulse);
+        Vector3 speed = Rbody.velocity;
+        Rbody.AddForce(Vector3.up*val, ForceMode.Impulse);
+        print(rbody.velocity);
         StartCoroutine(WaitToResetGround());
     }
     #endregion
@@ -472,7 +481,8 @@ public class Player : MonoBehaviour
         while (isActiveAndEnabled) {
             yield return wait;
             if (stats.MpLeft == 0) {
-                PhaseOff();
+                PhaseUp(false);
+                LightDash = false;
             }
             else {
                 stats.MpLeft--;

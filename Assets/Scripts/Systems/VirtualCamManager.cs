@@ -12,11 +12,11 @@ public class VirtualCamManager : MonoBehaviour
         PlayerLockon.enemyDetected += SwitchCam;
     }
     private void SwitchCam(bool val) {
-        if (val) {
-            lockOnCam.m_Priority = 20;
-        }
-        else {
-            lockOnCam.m_Priority = 0;
-        }
+        //if (val) {
+        //    lockOnCam.m_Priority = 20;
+        //}
+        //else {
+        //    lockOnCam.m_Priority = 0;
+        //}
     }
 }

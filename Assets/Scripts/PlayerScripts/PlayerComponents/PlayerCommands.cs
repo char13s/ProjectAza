@@ -47,7 +47,7 @@ public class PlayerCommands : MonoBehaviour {
         //AnalogInputs();
     }
     private IEnumerator SlowUpdate() {
-        YieldInstruction wait = new WaitForSeconds(0.5f);
+        YieldInstruction wait = new WaitForSeconds(0.25f);
         while (isActiveAndEnabled) {
             yield return wait;
             ResetChain();
@@ -83,12 +83,15 @@ public class PlayerCommands : MonoBehaviour {
         AddInput(Inputs.Triangle);
 
     }
-    private void OnAttack() {
+    private void OnAttack(InputValue value) {
 
         if (sendInput != null) {
             sendInput("Square");
         }
-        AddInput(Inputs.Square);
+        if (value.isPressed) {
+            AddInput(Inputs.Square);
+        }
+        
 
     }
     private void OnStyle() {
@@ -123,7 +126,7 @@ public class PlayerCommands : MonoBehaviour {
         }
         if (inputs.Contains(Inputs.Square)) {
             Chain = 2;
-
+            
         }
         if (inputs.Contains(Inputs.Triangle)) {
             Chain = 3;

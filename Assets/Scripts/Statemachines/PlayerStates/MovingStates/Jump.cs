@@ -6,6 +6,8 @@ public class Jump : StateMachineBehaviour
 {
     private Player player;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float move;
+    private Vector3 speed;
      private float jumpForceMax;
 
     public static event UnityAction<float> jumped;
@@ -13,21 +15,17 @@ public class Jump : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
         player = Player.GetPlayer();
-        //player.Grounded = false;
-        //
-        //player.Rbody.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-        //
         if (jumped!=null) {
             jumped(jumpForce);
         }
     }
-    //private void ChannelJump(float charge) {
-    //    JumpForceMax = 0;
-    //    JumpForceMax = jumpForce + charge;
-    //
-    //    player.Rbody.AddForce(new Vector3(0, JumpForceMax, 0), ForceMode.Impulse);
-    //    ChargeJump.jumpCharge -= ChannelJump;
-    //}
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        if (player.Moving) {
+            speed = move * player.transform.forward;
+            speed.y = player.Rbody.velocity.y;
+            player.Rbody.velocity = speed;
+        }
+    }
     public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) {
         player.Jumping = false;
     }

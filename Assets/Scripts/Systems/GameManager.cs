@@ -61,13 +61,11 @@ public class GameManager : MonoBehaviour {
                 sealPlayer(false);
             }
         }
-
     }
     public void ActivatePlayer(bool val) {
         if (spawnPlayer != null) {
             spawnPlayer(mainMEnuSpawn.transform);
         }
-
     }
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode) {
         if (scene.buildIndex == 0) {

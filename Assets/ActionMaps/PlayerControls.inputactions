@@ -134,7 +134,7 @@
                     "name": "",
                     "id": "5bb20ae2-efe4-46aa-b181-37aa5beb1921",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "Press(pressPoint=0.2)",
+                    "interactions": "Press(pressPoint=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
@@ -440,6 +440,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "LightDashRelease",
+                    "type": "Button",
+                    "id": "45188141-59e8-4015-a19d-82796e661d94",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -579,7 +587,7 @@
                     "name": "",
                     "id": "d9cc7727-8dbb-4d15-85cd-27fe4a82a96d",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "LightDash",
@@ -601,7 +609,7 @@
                     "name": "",
                     "id": "a26599a8-af18-4b7c-9a1e-02287bf8b99b",
                     "path": "<Gamepad>/start",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
@@ -660,6 +668,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Transform",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "865b99d5-09f1-48dc-9301-bfdfdd7160c5",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LightDashRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

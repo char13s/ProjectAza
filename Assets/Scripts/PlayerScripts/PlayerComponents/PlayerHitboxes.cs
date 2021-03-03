@@ -13,4 +13,10 @@ public class PlayerHitboxes : MonoBehaviour
     {
         
     }
+    private void SlamHitbox(bool val) {
+        slamHitBox.SetActive(val);
+    }
+    private void RiseHitBox(bool val) {
+        riseHitBox.SetActive(val);
+    }
 }

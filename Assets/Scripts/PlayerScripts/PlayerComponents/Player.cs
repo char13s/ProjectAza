@@ -55,10 +55,6 @@ public class Player : MonoBehaviour
     [SerializeField] private SkillSlots square;
     [SerializeField] private SkillSlots x;
     [Space]
-    [Header("EquipmentSlots")]
-    [SerializeField] private EquipmentSlot slot1;
-    [SerializeField] private EquipmentSlot slot2;
-    [Space]
     [Header("Materials")]
     private SkinnedMeshRenderer current;
     [SerializeField] private Material normal;
@@ -182,6 +178,7 @@ public class Player : MonoBehaviour
         LightDashing.sparkle += LightUp; 
         //LightDashing.vanish += BodyControl;
         LightDashing.sparkle +=PhaseUp;
+        GameManager.controlSwitcher += SwitchControls;
         //SlamState.gravity += GravityControl;
         //WallCheckState.wallCheck += WallCheck;
     }
@@ -395,6 +392,9 @@ public class Player : MonoBehaviour
                 break;
             case 1:
                 map.SwitchCurrentActionMap("CombatControls");
+                break;
+            case 2:
+                map.SwitchCurrentActionMap("PauseControls");
                 break;
         }
         //print(map.currentActionMap);

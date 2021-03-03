@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private UnityEvent onUnPause;
     [SerializeField] private GameObject spawn;
     public static event UnityAction<Transform> spawnPlayer;
+    public static event UnityAction<int> controlSwitcher;
     public static event UnityAction<bool> sealPlayer;
     public static event UnityAction<Transform> setCam;
     public static event UnityAction update;
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour {
             if (sealPlayer != null) {
                 sealPlayer(true);
             }
+            controlSwitcher.Invoke(2);
         }
         else {
             Time.timeScale = 1;
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour {
             if (sealPlayer != null) {
                 sealPlayer(false);
             }
+            controlSwitcher.Invoke(0);
         }
     }
     public void ActivatePlayer(bool val) {

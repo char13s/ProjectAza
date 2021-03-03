@@ -609,7 +609,7 @@
                     "name": "",
                     "id": "a26599a8-af18-4b7c-9a1e-02287bf8b99b",
                     "path": "<Gamepad>/start",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
@@ -743,6 +743,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "3dd2afde-066f-4883-8a08-b9599e95bcab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "GoBack",
                     "type": "Button",
                     "id": "0c7885e3-70d0-4d7c-9646-ca66283b9b79",
@@ -830,6 +838,28 @@
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a0e8eec-c2b9-422b-b272-09611a86b843",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95bd687e-dafa-4065-9b6c-a84929443343",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -855,6 +885,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "FallFaster",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "New action map",
+            "id": "3358d758-1c24-4bfd-b2f7-45ae6b3c3b40",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "ce870b12-b83d-43d3-a284-65372c7ae3fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e2de8e61-3560-4f09-94d3-311462cdc9d5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
